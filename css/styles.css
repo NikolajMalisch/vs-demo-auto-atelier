@@ -185,3 +185,56 @@ select:focus {
         transition: none;
     }
 }
+/* ===== Layout normalization (fix "everything shifted") ===== */
+.container-xl {
+    max-width: 80rem;
+    /* = 1280px */
+    margin-inline: auto;
+    padding-inline: 1rem;
+}
+
+@media (min-width: 640px) {
+    .container-xl {
+        padding-inline: 1.5rem;
+    }
+}
+
+@media (min-width: 1024px) {
+    .container-xl {
+        padding-inline: 2rem;
+    }
+}
+
+/* Make every section spacing consistent */
+.section-pad {
+    padding-top: 5rem;
+    /* 80px */
+    padding-bottom: 5rem;
+}
+
+@media (min-width: 640px) {
+    .section-pad {
+        padding-top: 7rem;
+        padding-bottom: 7rem;
+    }
+
+    /* 112px */
+}
+
+/* Prevent glass/cards from shrinking and "clipping" text */
+.card {
+    min-width: 0;
+}
+
+/* Prevent overlay layers from affecting layout flow */
+.grid-pattern,
+.noise::before {
+    pointer-events: none;
+}
+
+/* Ensure headings don't get unexpected margins */
+h1,
+h2,
+h3 {
+    margin: 0;
+}
