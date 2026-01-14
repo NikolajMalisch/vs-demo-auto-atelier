@@ -289,23 +289,24 @@
                     </div>
 
                     <!-- Right -->
-                    <div class="relative hidden lg:block">
+                    <div class="relative">
                         <div class="absolute inset-0 rounded-3xl opacity-50"
                             style="background: linear-gradient(135deg, var(--color-primary) 0%, transparent 55%);">
                         </div>
 
                         <div class="glass-card rounded-3xl p-6 relative overflow-hidden">
-                            <img src="images/autowerkstat.webp" alt="Auto Atelier"
-                                class="w-full h-80 object-cover rounded-2xl" loading="eager" decoding="async" />
+                            <img src="/images/autowerkstat.webp" alt="Auto Atelier"
+                                class="w-full h-64 sm:h-72 lg:h-80 object-cover rounded-2xl" loading="eager" decoding="async" />
                         </div>
                     </div>
+
                 </div>
             </div>
         </section>
 
         <!-- ===============================
-         SERVICES
-         =============================== -->
+            SERVICES
+        =============================== -->
         <section id="leistungen" class="py-20 sm:py-32 relative">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center mb-16">
@@ -320,58 +321,67 @@
                     </p>
                 </div>
 
-                <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <div class="glass-card rounded-2xl p-8 hover:scale-[1.02] transition-transform">
-                        <div class="w-12 h-12 rounded-2xl flex items-center justify-center mb-6"
-                            style="background: rgba(14,165,233,0.12);">
-                            <svg class="w-6 h-6" style="color: var(--color-primary);" fill="none" stroke="currentColor"
-                                viewBox="0 0 24 24" aria-hidden="true">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-                                    d="M9.75 17L9 20l-1-1-3 1 1-3-1-1 3-.75M3 9l3.75-.75L7.5 5l1.5 3.25L13 9l-3.5 1.75L9 14l-1.5-3.25L3 9z" />
-                            </svg>
-                        </div>
-                        <h3 class="font-display font-semibold text-white text-xl mb-3">Inspektion &amp; Wartung</h3>
-                        <p class="text-gray-400 leading-relaxed">Herstellerkonforme Inspektionen, Ölservice, Filter,
-                            Bremsen – sauber
-                            dokumentiert.</p>
-                    </div>
+<div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    <!-- Card 1 -->
+    <div class="glass-card rounded-2xl overflow-hidden hover:scale-[1.02] transition-transform">
+        <!-- Image -->
+        <div class="relative h-44">
+            <img src="/images/werkstat-inspektion.webp" alt="Inspektion & Wartung" class="w-full h-full object-cover"
+                loading="lazy" decoding="async" />
+            <!-- subtle gradient for readability -->
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent"></div>
+        </div>
 
-                    <div class="glass-card rounded-2xl p-8 hover:scale-[1.02] transition-transform">
-                        <div class="w-12 h-12 rounded-2xl flex items-center justify-center mb-6"
-                            style="background: rgba(14,165,233,0.12);">
-                            <svg class="w-6 h-6" style="color: var(--color-primary);" fill="none" stroke="currentColor"
-                                viewBox="0 0 24 24" aria-hidden="true">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-                                    d="M13 10V3L4 14h7v7l9-11h-7z" />
-                            </svg>
-                        </div>
-                        <h3 class="font-display font-semibold text-white text-xl mb-3">Diagnose &amp; Elektronik</h3>
-                        <p class="text-gray-400 leading-relaxed">Fehlerspeicher, Sensorik, Steuergeräte – moderne
-                            Diagnosetechnik für
-                            klare Ursachen.</p>
-                    </div>
+        <!-- Content -->
+        <div class="p-8">
+            <h3 class="font-display font-semibold text-white text-xl mb-3">
+                Inspektion &amp; Wartung
+            </h3>
+            <p class="text-gray-400 leading-relaxed">
+                Herstellerkonforme Inspektionen, Ölservice, Filter, Bremsen – sauber dokumentiert.
+            </p>
+        </div>
+    </div>
 
-                    <div class="glass-card rounded-2xl p-8 hover:scale-[1.02] transition-transform">
-                        <div class="w-12 h-12 rounded-2xl flex items-center justify-center mb-6"
-                            style="background: rgba(14,165,233,0.12);">
-                            <svg class="w-6 h-6" style="color: var(--color-primary);" fill="none" stroke="currentColor"
-                                viewBox="0 0 24 24" aria-hidden="true">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-                                    d="M9 12h6m-6 4h6m-7 4h8a2 2 0 002-2V6a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
-                            </svg>
-                        </div>
-                        <h3 class="font-display font-semibold text-white text-xl mb-3">Reparaturen</h3>
-                        <p class="text-gray-400 leading-relaxed">Motor, Fahrwerk, Bremsen, Klima – solide Arbeit mit
-                            fairer Beratung.
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </section>
+    <!-- Card 2 -->
+    <div class="glass-card rounded-2xl overflow-hidden hover:scale-[1.02] transition-transform">
+        <div class="relative h-44">
+            <img src="/images/diagnostik.webp" alt="Diagnose & Elektronik" class="w-full h-full object-cover"
+                loading="lazy" decoding="async" />
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent"></div>
+        </div>
+
+        <div class="p-8">
+            <h3 class="font-display font-semibold text-white text-xl mb-3">
+                Diagnose &amp; Elektronik
+            </h3>
+            <p class="text-gray-400 leading-relaxed">
+                Fehlerspeicher, Sensorik, Steuergeräte – moderne Diagnosetechnik für klare Ursachen.
+            </p>
+        </div>
+    </div>
+
+    <!-- Card 3 -->
+    <div class="glass-card rounded-2xl overflow-hidden hover:scale-[1.02] transition-transform">
+        <div class="relative h-44">
+            <img src="/images/reparatur.webp" alt="Reparaturen" class="w-full h-full object-cover" loading="lazy"
+                decoding="async" />
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent"></div>
+        </div>
+
+        <div class="p-8">
+            <h3 class="font-display font-semibold text-white text-xl mb-3">Reparaturen</h3>
+            <p class="text-gray-400 leading-relaxed">
+                Motor, Fahrwerk, Bremsen, Klima – solide Arbeit mit fairer Beratung.
+            </p>
+        </div>
+    </div>
+</div>
+</div>
 
         <!-- ===============================
-         ABOUT
-         =============================== -->
+           ABOUT
+        =============================== -->
         <section id="ueber-uns" class="py-20 sm:py-32 relative">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="grid lg:grid-cols-2 gap-12 items-center">
