@@ -1,9 +1,9 @@
 /* ==========================================================================
-   Auto Atelier Demo – app.js (improved)
-   - Mobile menu: scroll lock, ESC close, click-outside, focus trap
-   - Smooth scroll: closes menu, respects fixed nav via scroll-margin (CSS-side)
-   - Form: safer send logic, better UX states
-   - Toast: a11y + limiter
+    Auto Atelier Demo – app.js (improved)
+    - Mobile menu: scroll lock, ESC close, click-outside, focus trap
+    - Smooth scroll: closes menu, respects fixed nav via scroll-margin (CSS-side)
+    - Form: safer send logic, better UX states
+    - Toast: a11y + limiter
    ========================================================================== */
 
 // Config (optional)
