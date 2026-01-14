@@ -313,3 +313,13 @@ section[id] {
     flex: 0 0 auto !important;
     justify-content: flex-start !important;
 }
+/* force nav left alignment */
+.nav-shell nav a {
+  white-space: nowrap;
+}
+
+.nav-shell .container-xl {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

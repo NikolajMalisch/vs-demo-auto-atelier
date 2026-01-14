@@ -18,7 +18,6 @@
         href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
         rel="stylesheet" />
 
-    <!-- ===== Custom CSS: definiert Variablen + Custom Klassen ===== -->
     <style>
         :root {
             --bg0: #070a0f;
@@ -49,7 +48,9 @@
             font-family: "Space Grotesk", Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
         }
 
-        /* Container */
+        /* =========================================================
+       CONTENT container (Hero/Sections)
+    ========================================================== */
         .container-xl {
             max-width: 1180px;
             margin: 0 auto;
@@ -68,6 +69,40 @@
             .container-xl {
                 padding-left: 2rem;
                 padding-right: 2rem;
+            }
+        }
+
+        /* =========================================================
+       EDGE container (NAV + FOOTER) -> к краям
+       - без max-width
+       - только паддинги
+    ========================================================== */
+        .edge-xl {
+            width: 100%;
+            max-width: none;
+            margin: 0;
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+
+        @media (min-width: 640px) {
+            .edge-xl {
+                padding-left: 2rem;
+                padding-right: 2rem;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .edge-xl {
+                padding-left: 3rem;
+                padding-right: 3rem;
+            }
+        }
+
+        @media (min-width: 1536px) {
+            .edge-xl {
+                padding-left: 4rem;
+                padding-right: 4rem;
             }
         }
 
@@ -195,80 +230,77 @@
                 animation: none !important;
             }
         }
+
+        /* Fixed nav offset for anchors */
+        section[id] {
+            scroll-margin-top: 90px;
+        }
     </style>
 </head>
 
 <body class="min-h-screen">
     <!-- NAV -->
-<nav class="fixed top-0 w-full z-50 nav-shell">
-    <div class="container-xl">
-        <div class="h-16 flex items-center justify-between">
-            <!-- LEFT GROUP: logo + desktop links -->
-            <div class="flex items-center gap-10 min-w-0">
-                <!-- Brand -->
+    <nav class="fixed top-0 w-full z-50 nav-shell">
+        <!-- ✅ ВАЖНО: edge-xl вместо container-xl -->
+        <div class="edge-xl">
+            <div class="h-16 flex items-center justify-between">
+                <!-- LEFT SIDE -->
+                <div class="flex items-center gap-8 min-w-0">
+                    <div class="flex items-center gap-3 shrink-0">
+                        <div class="w-10 h-10 rounded-xl grid place-items-center"
+                            style="background: linear-gradient(135deg, var(--primary) 0%, var(--primary2) 100%);">
+                            <!-- svg -->
+                        </div>
+                        <div class="leading-tight">
+                            <div class="font-display font-bold text-white">Auto Atelier</div>
+                            <div class="text-xs" style="color: var(--muted2);">Wartung · Reparatur · Diagnose</div>
+                        </div>
+                    </div>
+
+                    <div class="hidden md:flex items-center gap-8 text-sm whitespace-nowrap"
+                        style="color: var(--muted);">
+                        <a href="#leistungen" class="hover:text-white">Leistungen</a>
+                        <a href="#ueber-uns" class="hover:text-white">Über uns</a>
+                        <a href="#preise" class="hover:text-white">Preise</a>
+                        <a href="#kontakt" class="hover:text-white">Kontakt</a>
+                    </div>
+                </div>
+
+                <!-- RIGHT SIDE -->
                 <div class="flex items-center gap-3 shrink-0">
-                    <div class="w-10 h-10 rounded-xl grid place-items-center"
-                        style="background: linear-gradient(135deg, var(--primary) 0%, var(--primary2) 100%);">
-                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                            aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-                                d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-                                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                    <a href="#kontakt"
+                        class="hidden sm:inline-flex btn-primary px-5 py-2.5 rounded-xl text-white text-sm font-medium">
+                        Termin anfragen
+                    </a>
+
+                    <button id="mobile-menu-btn"
+                        class="md:hidden inline-flex items-center justify-center w-10 h-10 rounded-xl btn-secondary"
+                        aria-label="Menü öffnen" aria-controls="mobile-menu" aria-expanded="false">
+                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 6h16M4 12h16M4 18h16" />
                         </svg>
-                    </div>
-
-                    <div class="leading-tight">
-                        <div class="font-display font-bold text-white">Auto Atelier</div>
-                        <div class="text-xs" style="color: var(--muted2);">Wartung · Reparatur · Diagnose</div>
-                    </div>
-                </div>
-
-                <!-- Desktop links (NOW LEFT, not centered) -->
-                <div class="hidden md:flex items-center gap-8 text-sm whitespace-nowrap" style="color: var(--muted);">
-                    <a href="#leistungen" class="hover:text-white transition-colors">Leistungen</a>
-                    <a href="#ueber-uns" class="hover:text-white transition-colors">Über uns</a>
-                    <a href="#preise" class="hover:text-white transition-colors">Preise</a>
-                    <a href="#kontakt" class="hover:text-white transition-colors">Kontakt</a>
+                    </button>
                 </div>
             </div>
+        </div>
 
-            <!-- RIGHT GROUP -->
-            <div class="flex items-center gap-3 shrink-0">
-                <a href="#kontakt"
-                    class="hidden sm:inline-flex btn-primary px-5 py-2.5 rounded-xl text-white text-sm font-medium">
-                    <span id="cta-primary">Termin anfragen</span>
-                </a>
-
-                <button id="mobile-menu-btn"
-                    class="md:hidden inline-flex items-center justify-center w-10 h-10 rounded-xl btn-secondary"
-                    aria-label="Menü öffnen" aria-controls="mobile-menu" aria-expanded="false">
-                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                        aria-hidden="true">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M4 6h16M4 12h16M4 18h16" />
-                    </svg>
-                </button>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden">
+            <div id="mobile-menu-overlay" class="fixed inset-0 bg-black/70"></div>
+            <div class="absolute top-16 left-0 right-0 glass border-t border-white/10 z-50">
+                <!-- ✅ edge-xl чтобы пункты тоже были ближе к краям -->
+                <div class="edge-xl py-6 space-y-3 text-left">
+                    <a href="#leistungen" class="block py-2" style="color: var(--muted);">Leistungen</a>
+                    <a href="#ueber-uns" class="block py-2" style="color: var(--muted);">Über uns</a>
+                    <a href="#preise" class="block py-2" style="color: var(--muted);">Preise</a>
+                    <a href="#kontakt" class="block py-2" style="color: var(--muted);">Kontakt</a>
+                    <a href="#kontakt" class="block btn-primary px-5 py-3 rounded-xl text-white text-center mt-2">Termin
+                        anfragen</a>
+                </div>
             </div>
         </div>
-    </div>
-
-    <!-- Mobile Menu (оставь как было) -->
-    <div id="mobile-menu" class="hidden md:hidden">
-        <div id="mobile-menu-overlay" class="fixed inset-0 bg-black/70"></div>
-        <div class="absolute top-16 left-0 right-0 glass border-t border-white/10 z-50">
-            <div class="container-xl py-6 space-y-3 text-left">
-                <a href="#leistungen" class="block py-2" style="color: var(--muted);">Leistungen</a>
-                <a href="#ueber-uns" class="block py-2" style="color: var(--muted);">Über uns</a>
-                <a href="#preise" class="block py-2" style="color: var(--muted);">Preise</a>
-                <a href="#kontakt" class="block py-2" style="color: var(--muted);">Kontakt</a>
-                <a href="#kontakt" class="block btn-primary px-5 py-3 rounded-xl text-white text-center mt-2">Termin
-                    anfragen</a>
-            </div>
-        </div>
-    </div>
-</nav>
-
+    </nav>
 
     <main id="main">
         <!-- HERO -->
@@ -319,8 +351,7 @@
 
                         <div class="flex flex-wrap items-center gap-6 text-sm" style="color: var(--muted2);">
                             <div class="flex items-center gap-2">
-                                <svg class="w-5 h-5" style="color: var(--primary);" fill="none" <!-- -->
-                                    stroke="currentColor"
+                                <svg class="w-5 h-5" style="color: var(--primary);" fill="none" stroke="currentColor"
                                     viewBox="0 0 24 24" aria-hidden="true">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -348,7 +379,6 @@
                         </div>
                     </div>
 
-                    <!-- HERO image -->
                     <div class="relative hidden lg:block">
                         <div class="absolute -inset-3 rounded-[32px] opacity-35"
                             style="background: radial-gradient(600px 280px at 30% 20%, rgba(25,183,255,.35), transparent 60%), radial-gradient(520px 320px at 80% 70%, rgba(10,124,255,.28), transparent 60%);">
@@ -383,7 +413,6 @@
             </div>
 
             <div class="relative container-xl">
-                <!-- ✅ Left aligned heading -->
                 <div class="mb-14 max-w-3xl">
                     <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full chip mb-4">
                         <span class="text-sm" style="color: var(--muted);">Unsere Leistungen</span>
@@ -398,13 +427,7 @@
 
                 <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
                     <article class="card p-8">
-                        <div class="icon-badge mb-6">
-                            <svg class="w-6 h-6" style="color: var(--primary);" fill="none" stroke="currentColor"
-                                viewBox="0 0 24 24" aria-hidden="true">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6"
-                                    d="M9.75 17L9 20l-1-1-3 1 1-3-1-1 3-.75M3 9l3.75-.75L7.5 5l1.5 3.25L13 9l-3.5 1.75L9 14l-1.5-3.25L3 9z" />
-                            </svg>
-                        </div>
+                        <div class="icon-badge mb-6"></div>
                         <h3 class="font-display font-semibold text-white text-xl mb-2">Inspektion &amp; Wartung</h3>
                         <p style="color: var(--muted);" class="leading-relaxed">
                             Herstellerkonforme Inspektionen, Ölservice, Filter, Bremsen – dokumentiert und
@@ -413,13 +436,7 @@
                     </article>
 
                     <article class="card p-8">
-                        <div class="icon-badge mb-6">
-                            <svg class="w-6 h-6" style="color: var(--primary);" fill="none" stroke="currentColor"
-                                viewBox="0 0 24 24" aria-hidden="true">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6"
-                                    d="M13 10V3L4 14h7v7l9-11h-7z" />
-                            </svg>
-                        </div>
+                        <div class="icon-badge mb-6"></div>
                         <h3 class="font-display font-semibold text-white text-xl mb-2">Diagnose &amp; Elektronik</h3>
                         <p style="color: var(--muted);" class="leading-relaxed">
                             Fehlerspeicher, Sensorik, Live-Daten – schnelle Ursachenfindung statt Teiletausch.
@@ -427,13 +444,7 @@
                     </article>
 
                     <article class="card p-8">
-                        <div class="icon-badge mb-6">
-                            <svg class="w-6 h-6" style="color: var(--primary);" fill="none" stroke="currentColor"
-                                viewBox="0 0 24 24" aria-hidden="true">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6"
-                                    d="M9 12h6m-6 4h6m-7 4h8a2 2 0 002-2V6a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
-                            </svg>
-                        </div>
+                        <div class="icon-badge mb-6"></div>
                         <h3 class="font-display font-semibold text-white text-xl mb-2">Reparaturen</h3>
                         <p style="color: var(--muted);" class="leading-relaxed">
                             Motor, Fahrwerk, Bremsen, Klima – solide Arbeit mit klarer Abstimmung und fairer Beratung.
@@ -445,324 +456,16 @@
 
         <div class="section-topline"></div>
 
-        <!-- ABOUT -->
-        <section id="ueber-uns" class="relative section-pad">
-            <div class="absolute inset-0 pointer-events-none"
-                style="background: radial-gradient(800px 420px at 80% 10%, rgba(10,124,255,.10), transparent 60%);">
-            </div>
+        <!-- (остальные секции оставь как у тебя — они уже правильно в container-xl) -->
 
-            <div class="relative container-xl">
-                <div class="grid lg:grid-cols-2 gap-10 items-start">
-                    <div>
-                        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full chip mb-4">
-                            <span class="text-sm" style="color: var(--muted);">Über uns</span>
-                        </div>
-
-                        <h2 class="font-display text-3xl sm:text-4xl font-bold text-white mb-5">Warum Auto Atelier?</h2>
-
-                        <p id="about-text" class="text-lg leading-relaxed mb-8" style="color: var(--muted);">
-                            Auto Atelier ist Ihre meistergeführte Werkstatt in Hameln. Unser Fokus liegt auf moderner
-                            Fahrzeugdiagnostik
-                            und zuverlässiger Wartung — für alle Marken und Modelle.
-                        </p>
-
-                        <div class="grid sm:grid-cols-2 gap-6">
-                            <div class="card p-6">
-                                <div class="font-display font-semibold text-white text-lg mb-2">Transparent</div>
-                                <div style="color: var(--muted);" class="text-sm">Klare Diagnosen, nachvollziehbare
-                                    Angebote.</div>
-                            </div>
-                            <div class="card p-6">
-                                <div class="font-display font-semibold text-white text-lg mb-2">Zuverlässig</div>
-                                <div style="color: var(--muted);" class="text-sm">Pünktliche Termine und saubere
-                                    Ausführung.</div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="card p-8 rounded-[28px] h-fit">
-                        <div class="space-y-6">
-                            <div class="flex items-start gap-4">
-                                <div class="icon-badge">
-                                    <svg class="w-5 h-5" style="color: var(--primary);" fill="none"
-                                        stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M5 13l4 4L19 7" />
-                                    </svg>
-                                </div>
-                                <div>
-                                    <div class="font-medium text-white mb-1">Meisterqualität</div>
-                                    <div class="text-sm" style="color: var(--muted);">Arbeit nach Standards – mit
-                                        Dokumentation.</div>
-                                </div>
-                            </div>
-
-                            <div class="flex items-start gap-4">
-                                <div class="icon-badge">
-                                    <svg class="w-5 h-5" style="color: var(--primary);" fill="none"
-                                        stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M12 8v4l3 3" />
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                    </svg>
-                                </div>
-                                <div>
-                                    <div class="font-medium text-white mb-1">Schnelle Termine</div>
-                                    <div class="text-sm" style="color: var(--muted);">Flexible Zeiten – schlanke
-                                        Prozesse.</div>
-                                </div>
-                            </div>
-
-                            <div class="flex items-start gap-4">
-                                <div class="icon-badge">
-                                    <svg class="w-5 h-5" style="color: var(--primary);" fill="none"
-                                        stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M3 10h18M7 15h10M5 6h14v14H5V6z" />
-                                    </svg>
-                                </div>
-                                <div>
-                                    <div class="font-medium text-white mb-1">Moderne Technik</div>
-                                    <div class="text-sm" style="color: var(--muted);">Diagnose auf aktuellem Stand –
-                                        präzise.</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </section>
-
-        <div class="section-topline"></div>
-
-        <!-- PRICING -->
-        <section id="preise" class="relative section-pad">
-            <div class="absolute inset-0 pointer-events-none"
-                style="background: radial-gradient(900px 450px at 50% 0%, rgba(25,183,255,.08), transparent 60%);">
-            </div>
-
-            <div class="relative container-xl">
-                <!-- ✅ Left aligned heading -->
-                <div class="mb-14 max-w-3xl">
-                    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full chip mb-4">
-                        <span class="text-sm" style="color: var(--muted);">Pakete &amp; Preise</span>
-                    </div>
-                    <h2 class="font-display text-3xl sm:text-4xl font-bold text-white mb-4">
-                        Transparent. Realistisch. Planbar.
-                    </h2>
-                    <p class="text-lg max-w-2xl" style="color: var(--muted);">
-                        Richtpreise als Orientierung – abhängig von Fahrzeug, Teilen und Aufwand.
-                    </p>
-                </div>
-
-                <div class="grid lg:grid-cols-3 gap-6">
-                    <div class="card p-8">
-                        <div class="flex items-center justify-between mb-5">
-                            <h3 class="font-display font-semibold text-white text-xl">Basis-Check</h3>
-                            <span class="text-sm" style="color: var(--muted2);">ab</span>
-                        </div>
-                        <div class="text-4xl font-bold text-white mb-2">49€</div>
-                        <div class="text-sm mb-8" style="color: var(--muted);">Schneller Zustands-Check &amp; Beratung
-                        </div>
-                        <ul class="space-y-3 text-sm mb-8" style="color: var(--muted);">
-                            <li class="flex items-start gap-2"><span style="color: var(--primary);">✓</span>
-                                Sichtprüfung &amp; Flüssigkeiten</li>
-                            <li class="flex items-start gap-2"><span style="color: var(--primary);">✓</span>
-                                Batterie &amp; Bremsen-Quickcheck</li>
-                            <li class="flex items-start gap-2"><span style="color: var(--primary);">✓</span>
-                                Empfehlung + Kostenschätzung</li>
-                        </ul>
-                        <a href="#kontakt"
-                            class="btn-secondary w-full px-6 py-3 rounded-2xl text-white font-medium text-center block">Anfragen</a>
-                    </div>
-
-                    <div class="card p-8 relative overflow-hidden border border-white/14">
-                        <div class="absolute -top-24 -right-24 w-64 h-64 rounded-full"
-                            style="background: radial-gradient(circle, rgba(25,183,255,.25), transparent 60%);"></div>
-                        <div class="absolute top-0 left-0 right-0 h-[2px]"
-                            style="background: linear-gradient(90deg, var(--primary), var(--primary2));"></div>
-
-                        <div class="flex items-center justify-between mb-5 relative">
-                            <h3 class="font-display font-semibold text-white text-xl">Inspektion Pro</h3>
-                            <span class="text-xs px-3 py-1 rounded-full"
-                                style="background: rgba(25,183,255,.12); color: rgba(255,255,255,.88); border: 1px solid rgba(25,183,255,.22);">
-                                Beliebt
-                            </span>
-                        </div>
-
-                        <div class="text-4xl font-bold text-white mb-2 relative">ab 199€</div>
-                        <div class="text-sm mb-8 relative" style="color: var(--muted);">Wartung nach Plan inkl.
-                            Dokumentation</div>
-
-                        <ul class="space-y-3 text-sm mb-8 relative" style="color: var(--muted);">
-                            <li class="flex items-start gap-2"><span style="color: var(--primary);">✓</span>
-                                Öl- &amp; Filterservice (Teile nach Auswahl)</li>
-                            <li class="flex items-start gap-2"><span style="color: var(--primary);">✓</span>
-                                Diagnose &amp; Fehlerspeicher</li>
-                            <li class="flex items-start gap-2"><span style="color: var(--primary);">✓</span>
-                                Prüfprotokoll</li>
-                        </ul>
-
-                        <a href="#kontakt"
-                            class="btn-primary w-full px-6 py-3 rounded-2xl text-white font-medium text-center block relative">Termin
-                            anfragen</a>
-                    </div>
-
-                    <div class="card p-8">
-                        <div class="flex items-center justify-between mb-5">
-                            <h3 class="font-display font-semibold text-white text-xl">Diagnose Premium</h3>
-                            <span class="text-sm" style="color: var(--muted2);">ab</span>
-                        </div>
-                        <div class="text-4xl font-bold text-white mb-2">129€</div>
-                        <div class="text-sm mb-8" style="color: var(--muted);">Tiefendiagnose für komplexe Fälle</div>
-                        <ul class="space-y-3 text-sm mb-8" style="color: var(--muted);">
-                            <li class="flex items-start gap-2"><span style="color: var(--primary);">✓</span>
-                                Messwerte &amp; Live-Daten</li>
-                            <li class="flex items-start gap-2"><span style="color: var(--primary);">✓</span>
-                                Elektrik/Elektronik-Check</li>
-                            <li class="flex items-start gap-2"><span style="color: var(--primary);">✓</span>
-                                Reparaturplan + Angebot</li>
-                        </ul>
-                        <a href="#kontakt"
-                            class="btn-secondary w-full px-6 py-3 rounded-2xl text-white font-medium text-center block">Anfragen</a>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <div class="section-topline"></div>
-
-        <!-- CONTACT -->
-        <section id="kontakt" class="relative section-pad">
-            <div class="absolute inset-0 pointer-events-none"
-                style="background: radial-gradient(900px 480px at 70% 20%, rgba(10,124,255,.10), transparent 60%);">
-            </div>
-
-            <div class="relative container-xl">
-                <!-- ✅ Left aligned heading -->
-                <div class="mb-14 max-w-3xl">
-                    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full chip mb-4">
-                        <span class="text-sm" style="color: var(--muted);">Kontakt</span>
-                    </div>
-                    <h2 class="font-display text-3xl sm:text-4xl font-bold text-white mb-4">Termin anfragen</h2>
-                    <p class="text-lg max-w-2xl" style="color: var(--muted);">
-                        Kurze Angaben reichen – wir melden uns zeitnah zurück.
-                    </p>
-                </div>
-
-                <div class="grid grid-cols-1 lg:grid-cols-5 gap-8 items-start">
-                    <div class="space-y-6 lg:col-span-2">
-                        <div class="card p-8">
-                            <h3 class="font-display font-semibold text-white text-xl mb-6">Kontakt</h3>
-                            <div class="space-y-5">
-                                <div>
-                                    <div class="text-sm mb-1" style="color: var(--muted2);">Telefon</div>
-                                    <div id="contact-phone" class="text-white font-medium">05151 123456</div>
-                                </div>
-                                <div>
-                                    <div class="text-sm mb-1" style="color: var(--muted2);">E-Mail</div>
-                                    <div id="contact-email" class="text-white font-medium">info@auto-atelier.de</div>
-                                </div>
-                                <div>
-                                    <div class="text-sm mb-1" style="color: var(--muted2);">Adresse</div>
-                                    <div id="contact-address" class="text-white font-medium">Musterstraße 12, 31785
-                                        Hameln</div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="card p-8">
-                            <h3 class="font-display font-semibold text-white text-xl mb-6">Öffnungszeiten</h3>
-                            <table class="w-full text-sm">
-                                <tbody>
-                                    <tr class="border-b border-white/5">
-                                        <td class="py-3" style="color: var(--muted);">Montag – Freitag</td>
-                                        <td class="py-3 text-right text-white">08:00 – 18:00 Uhr</td>
-                                    </tr>
-                                    <tr class="border-b border-white/5">
-                                        <td class="py-3" style="color: var(--muted);">Samstag</td>
-                                        <td class="py-3 text-right text-white">09:00 – 14:00 Uhr</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="py-3" style="color: var(--muted);">Sonntag</td>
-                                        <td class="py-3 text-right" style="color: var(--muted2);">Geschlossen</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-
-                    <div class="card p-8 lg:col-span-3">
-                        <form id="contact-form" class="space-y-6">
-                            <div>
-                                <label for="name" class="block text-sm font-medium mb-2"
-                                    style="color: var(--muted);">Name *</label>
-                                <input type="text" id="name" name="name" required class="w-full px-4 py-3 rounded-xl"
-                                    placeholder="Ihr vollständiger Name" autocomplete="name" />
-                            </div>
-
-                            <div>
-                                <label for="phone" class="block text-sm font-medium mb-2"
-                                    style="color: var(--muted);">Telefon *</label>
-                                <input type="tel" id="phone" name="phone" required class="w-full px-4 py-3 rounded-xl"
-                                    placeholder="Für Rückfragen und Terminbestätigung" autocomplete="tel" />
-                            </div>
-
-                            <div>
-                                <label for="vehicle" class="block text-sm font-medium mb-2"
-                                    style="color: var(--muted);">Fahrzeug</label>
-                                <input type="text" id="vehicle" name="vehicle" class="w-full px-4 py-3 rounded-xl"
-                                    placeholder="z.B. Mercedes W204, 2012" autocomplete="off" />
-                            </div>
-
-                            <div>
-                                <label for="concern" class="block text-sm font-medium mb-2"
-                                    style="color: var(--muted);">Anliegen *</label>
-                                <textarea id="concern" name="concern" required rows="4"
-                                    class="w-full px-4 py-3 rounded-xl"
-                                    placeholder="Kurz beschreiben: Diagnose, Wartung, Geräusch, Bremsen, ..."></textarea>
-                            </div>
-
-                            <div>
-                                <label for="preferred_date" class="block text-sm font-medium mb-2"
-                                    style="color: var(--muted);">Wunschtermin</label>
-                                <input type="date" id="preferred_date" name="preferred_date"
-                                    class="w-full px-4 py-3 rounded-xl" />
-                            </div>
-
-                            <button id="submit-btn" type="submit"
-                                class="btn-primary w-full px-6 py-4 rounded-2xl text-white font-medium inline-flex items-center justify-center gap-2">
-                                <span>Termin anfragen</span>
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                                    aria-hidden="true">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                                </svg>
-                            </button>
-                        </form>
-
-                        <div id="form-success" class="hidden text-center py-10">
-                            <h3 class="font-display font-semibold text-white text-xl mb-2">Anfrage gesendet</h3>
-                            <p class="mb-6" style="color: var(--muted);">Wir melden uns zeitnah bei Ihnen zurück.</p>
-                            <button id="new-request-btn"
-                                class="btn-secondary px-6 py-3 rounded-2xl text-white font-medium">
-                                Neue Anfrage
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
     </main>
 
     <!-- FOOTER -->
     <footer class="relative mt-4">
         <div class="section-topline"></div>
         <div class="relative" style="background: linear-gradient(180deg, rgba(8,10,14,1) 0%, rgba(5,6,8,1) 100%);">
-            <div class="relative container-xl py-14">
-                <!-- ✅ Proper footer layout: strong left column + right columns -->
+            <!-- ✅ ВАЖНО: edge-xl вместо container-xl -->
+            <div class="relative edge-xl py-14">
                 <div class="grid md:grid-cols-12 gap-10 items-start text-left">
                     <div class="md:col-span-5">
                         <div class="font-display font-bold text-white text-lg">Auto Atelier</div>
@@ -794,8 +497,7 @@
                 <div
                     class="mt-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 text-left w-full">
                     <div class="text-xs" style="color: var(--muted2);">© <span id="year"></span> Auto Atelier. Alle
-                        Rechte
-                        vorbehalten.</div>
+                        Rechte vorbehalten.</div>
                     <div class="text-xs" style="color: var(--muted2);">Built as Demo · Visual Struktur</div>
                 </div>
             </div>
@@ -804,10 +506,8 @@
 
     <div id="toast-container" class="fixed bottom-6 right-6 z-50 flex flex-col gap-3"></div>
 
-    <!-- JS: genau EINMAL, cache-busted -->
     <script defer src="./js/app.js?v=20260114-3"></script>
 
-    <!-- Minimal fallback (falls JS spät lädt): Jahr setzen -->
     <script>
         (function () {
             var y = document.getElementById("year");
