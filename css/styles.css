@@ -286,3 +286,30 @@ section[id] {
         transition: none;
     }
 }
+/* === HARD FIX: Navbar layout (left / right) === */
+.nav-shell .nav-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between !important;
+    gap: 16px;
+}
+
+.nav-shell .nav-left {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    min-width: 0;
+}
+
+.nav-shell .nav-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-shrink: 0;
+}
+
+/* ВАЖНО: если где-то остался center-block, отключаем его эффект */
+.nav-shell .nav-center {
+    flex: 0 0 auto !important;
+    justify-content: flex-start !important;
+}
