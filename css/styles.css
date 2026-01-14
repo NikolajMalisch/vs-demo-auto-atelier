@@ -1,13 +1,19 @@
 /* ==========================================================================
-   Premium Design System (dark, high-contrast, clean glass)
+    Premium Design System (dark, high-contrast, clean glass)
+    FULL CSS (left/right layout fixed)
    ========================================================================== */
+
+/* ===== Tokens ===== */
 :root {
     --bg: #070a0f;
     --bg2: #06070b;
+
     --panel: rgba(255, 255, 255, 0.05);
     --panel2: rgba(255, 255, 255, 0.035);
+
     --stroke: rgba(255, 255, 255, 0.10);
     --stroke2: rgba(255, 255, 255, 0.06);
+
     --text: rgba(255, 255, 255, 0.92);
     --muted: rgba(255, 255, 255, 0.68);
     --muted2: rgba(255, 255, 255, 0.52);
@@ -23,6 +29,7 @@
     --shadow-float: 0 22px 90px rgba(0, 0, 0, 0.65);
 }
 
+/* ===== Base / Reset ===== */
 * {
     box-sizing: border-box;
     scrollbar-width: thin;
@@ -48,152 +55,7 @@ body {
     letter-spacing: -0.02em;
 }
 
-.glass {
-    background: linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.03));
-    border: 1px solid var(--stroke2);
-    backdrop-filter: blur(14px);
-}
-
-.nav-shell {
-    background: linear-gradient(180deg, rgba(10, 12, 18, 0.78), rgba(10, 12, 18, 0.55));
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-    backdrop-filter: blur(16px);
-}
-
-.chip {
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    backdrop-filter: blur(12px);
-}
-
-.btn-primary {
-    background: linear-gradient(135deg, var(--primary) 0%, var(--primary2) 100%);
-    box-shadow: 0 10px 34px rgba(25, 183, 255, 0.22);
-    transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
-}
-
-.btn-primary:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 18px 48px rgba(25, 183, 255, 0.28);
-    filter: brightness(1.02);
-}
-
-.btn-secondary {
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(255, 255, 255, 0.10);
-    transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
-}
-
-.btn-secondary:hover {
-    transform: translateY(-1px);
-    background: rgba(255, 255, 255, 0.06);
-    border-color: rgba(255, 255, 255, 0.16);
-}
-
-.card {
-    border-radius: var(--radius-xl);
-    border: 1px solid var(--stroke2);
-    background: linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.03));
-    box-shadow: var(--shadow-card);
-    transition: transform 0.22s ease, border-color 0.22s ease, background 0.22s ease;
-    backdrop-filter: blur(14px);
-    min-width: 0;
-}
-
-.card:hover {
-    transform: translateY(-3px);
-    border-color: rgba(255, 255, 255, 0.16);
-    background: linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.035));
-}
-
-.icon-badge {
-    width: 46px;
-    height: 46px;
-    border-radius: 16px;
-    display: grid;
-    place-items: center;
-    background: rgba(25, 183, 255, 0.10);
-    border: 1px solid rgba(25, 183, 255, 0.18);
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
-}
-
-.grid-pattern {
-    background-image:
-        linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
-    background-size: 64px 64px;
-    opacity: 0.28;
-    pointer-events: none;
-}
-
-.noise::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.95' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-    opacity: 0.035;
-}
-
-.hero-shadow {
-    box-shadow: var(--shadow-float);
-}
-
-.section-topline {
-    height: 1px;
-    width: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.10), transparent);
-}
-
-input,
-textarea,
-select {
-    background: rgba(255, 255, 255, 0.035);
-    border: 1px solid rgba(255, 255, 255, 0.10);
-    color: rgba(255, 255, 255, 0.92);
-    transition: border-color 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
-}
-
-input::placeholder,
-textarea::placeholder {
-    color: rgba(255, 255, 255, 0.44);
-}
-
-input:focus,
-textarea:focus,
-select:focus {
-    outline: none;
-    border-color: rgba(25, 183, 255, 0.55);
-    box-shadow: 0 0 0 4px rgba(25, 183, 255, 0.10);
-    background: rgba(255, 255, 255, 0.05);
-}
-
-.toast {
-    animation: toastSlide 0.28s ease-out;
-}
-
-@keyframes toastSlide {
-    from {
-        opacity: 0;
-        transform: translateX(14px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
-}
-
-@media (prefers-reduced-motion: reduce) {
-
-    .card,
-    .btn-primary,
-    .btn-secondary {
-        transition: none;
-    }
-}
-
-/* ===== Layout normalization ===== */
+/* ===== Containers / Layout ===== */
 .container-xl {
     max-width: 80rem;
     /* 1280px */
@@ -238,18 +100,167 @@ h3 {
     margin: 0;
 }
 
+/* ===== FIX: Section headings LEFT (no forced center) =====
+   If you want center on mobile and left on desktop,
+   revert to your old .section-head rules. */
 .section-head {
-    text-align: center;
+    text-align: left;
+    /* ✅ important */
+    max-width: 56rem;
+    /* nice readable width */
 }
 
-@media (min-width: 1024px) {
-    .section-head {
-        text-align: left;
+.section-head .lead {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+}
+
+/* ===== Components ===== */
+.glass {
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.03));
+    border: 1px solid var(--stroke2);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+}
+
+.nav-shell {
+    background: linear-gradient(180deg, rgba(10, 12, 18, 0.78), rgba(10, 12, 18, 0.55));
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+}
+
+.chip {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary2) 100%);
+    box-shadow: 0 10px 34px rgba(25, 183, 255, 0.22);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+}
+
+.btn-primary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 18px 48px rgba(25, 183, 255, 0.28);
+    filter: brightness(1.02);
+}
+
+.btn-secondary {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.10);
+    transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+}
+
+.btn-secondary:hover {
+    transform: translateY(-1px);
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(255, 255, 255, 0.16);
+}
+
+.card {
+    border-radius: var(--radius-xl);
+    border: 1px solid var(--stroke2);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.03));
+    box-shadow: var(--shadow-card);
+    transition: transform 0.22s ease, border-color 0.22s ease, background 0.22s ease;
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    min-width: 0;
+}
+
+.card:hover {
+    transform: translateY(-3px);
+    border-color: rgba(255, 255, 255, 0.16);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.035));
+}
+
+.icon-badge {
+    width: 46px;
+    height: 46px;
+    border-radius: 16px;
+    display: grid;
+    place-items: center;
+    background: rgba(25, 183, 255, 0.10);
+    border: 1px solid rgba(25, 183, 255, 0.18);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+}
+
+/* Background helpers */
+.grid-pattern {
+    background-image:
+        linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+    background-size: 64px 64px;
+    opacity: 0.28;
+    pointer-events: none;
+}
+
+.noise {
+    position: relative;
+    /* needed for ::before */
+}
+
+.noise::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.95' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    opacity: 0.035;
+}
+
+.hero-shadow {
+    box-shadow: var(--shadow-float);
+}
+
+.section-topline {
+    height: 1px;
+    width: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.10), transparent);
+}
+
+/* Forms */
+input,
+textarea,
+select {
+    background: rgba(255, 255, 255, 0.035);
+    border: 1px solid rgba(255, 255, 255, 0.10);
+    color: rgba(255, 255, 255, 0.92);
+    transition: border-color 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+}
+
+input::placeholder,
+textarea::placeholder {
+    color: rgba(255, 255, 255, 0.44);
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+    outline: none;
+    border-color: rgba(25, 183, 255, 0.55);
+    box-shadow: 0 0 0 4px rgba(25, 183, 255, 0.10);
+    background: rgba(255, 255, 255, 0.05);
+}
+
+/* Toast */
+.toast {
+    animation: toastSlide 0.28s ease-out;
+}
+
+@keyframes toastSlide {
+    from {
+        opacity: 0;
+        transform: translateX(14px);
     }
 
-    .section-head .lead {
-        margin-left: 0 !important;
-        margin-right: 0 !important;
+    to {
+        opacity: 1;
+        transform: translateX(0);
     }
 }
 
@@ -261,7 +272,17 @@ button:focus-visible {
     border-radius: 14px;
 }
 
-/* Make anchor scroll correct with fixed nav (64px) */
+/* Make anchor scroll correct with fixed nav */
 section[id] {
     scroll-margin-top: 90px;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+
+    .card,
+    .btn-primary,
+    .btn-secondary {
+        transition: none;
+    }
 }
