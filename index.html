@@ -10,17 +10,12 @@
 
     <script src="https://cdn.tailwindcss.com"></script>
 
-    <!-- Optional SDKs (если реально используешь) -->
-    <!-- <script defer src="./_sdk/element_sdk.js"></script> -->
-    <!-- <script defer src="./_sdk/data_sdk.js"></script> -->
-
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
         rel="stylesheet" />
 
-    <!-- ONLY external CSS -->
     <link rel="stylesheet" href="css/styles.css" />
 </head>
 
@@ -173,23 +168,14 @@
 
                         <div
                             class="relative hero-shadow rounded-[32px] glass border border-white/10 overflow-hidden h-[420px]">
-                            <!-- image as full background -->
                             <img src="images/autowerkstat.webp" alt="Auto Atelier"
                                 class="absolute inset-0 w-full h-full object-cover" loading="eager" decoding="async"
                                 fetchpriority="high" />
-
-                            <!-- optional: darken + premium gradient -->
                             <div class="absolute inset-0 bg-gradient-to-tr from-black/45 via-black/15 to-transparent">
                             </div>
-
-                            <!-- optional: subtle inner stroke -->
                             <div class="absolute inset-0 pointer-events-none"
                                 style="box-shadow: inset 0 0 0 1px rgba(255,255,255,.06);"></div>
-
-                            <!-- optional content on top (if you need later) -->
-                            <div class="relative p-6">
-                                <!-- place badges/text here if needed -->
-                            </div>
+                            <div class="relative p-6"></div>
                         </div>
 
                     </div>
@@ -206,14 +192,14 @@
             </div>
 
             <div class="relative container-xl">
-                <div class="text-center mb-14">
+                <div class="section-head mb-14">
                     <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full chip mb-4">
                         <span class="text-sm" style="color: var(--muted);">Unsere Leistungen</span>
                     </div>
                     <h2 class="font-display text-3xl sm:text-4xl font-bold text-white mb-4">
                         Alles für Ihr Fahrzeug – aus einer Hand
                     </h2>
-                    <p class="text-lg max-w-2xl mx-auto" style="color: var(--muted);">
+                    <p class="lead text-lg max-w-2xl mx-auto" style="color: var(--muted);">
                         Von der Diagnose bis zur Reparatur: präzise, transparent, zuverlässig.
                     </p>
                 </div>
@@ -366,14 +352,14 @@
             </div>
 
             <div class="relative container-xl">
-                <div class="text-center mb-14">
+                <div class="section-head mb-14">
                     <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full chip mb-4">
                         <span class="text-sm" style="color: var(--muted);">Pakete &amp; Preise</span>
                     </div>
                     <h2 class="font-display text-3xl sm:text-4xl font-bold text-white mb-4">
                         Transparent. Realistisch. Planbar.
                     </h2>
-                    <p class="text-lg max-w-2xl mx-auto" style="color: var(--muted);">
+                    <p class="lead text-lg max-w-2xl mx-auto" style="color: var(--muted);">
                         Richtpreise als Orientierung – abhängig von Fahrzeug, Teilen und Aufwand.
                     </p>
                 </div>
@@ -463,17 +449,19 @@
             </div>
 
             <div class="relative container-xl">
-                <div class="text-center mb-14">
+                <div class="section-head mb-14">
                     <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full chip mb-4">
                         <span class="text-sm" style="color: var(--muted);">Kontakt</span>
                     </div>
                     <h2 class="font-display text-3xl sm:text-4xl font-bold text-white mb-4">Termin anfragen</h2>
-                    <p class="text-lg max-w-2xl mx-auto" style="color: var(--muted);">Kurze Angaben reichen – wir melden
-                        uns zeitnah zurück.</p>
+                    <p class="lead text-lg max-w-2xl mx-auto" style="color: var(--muted);">
+                        Kurze Angaben reichen – wir melden uns zeitnah zurück.
+                    </p>
                 </div>
 
-                <div class="grid lg:grid-cols-2 gap-8 items-start">
-                    <div class="space-y-6">
+                <!-- ✅ Premium layout: 2/3 columns on desktop -->
+                <div class="grid grid-cols-1 lg:grid-cols-5 gap-8 items-start">
+                    <div class="space-y-6 lg:col-span-2">
                         <div class="card p-8">
                             <h3 class="font-display font-semibold text-white text-xl mb-6">Kontakt</h3>
                             <div class="space-y-5">
@@ -514,27 +502,27 @@
                         </div>
                     </div>
 
-                    <div class="card p-8">
+                    <div class="card p-8 lg:col-span-3">
                         <form id="contact-form" class="space-y-6">
                             <div>
                                 <label for="name" class="block text-sm font-medium mb-2"
                                     style="color: var(--muted);">Name *</label>
                                 <input type="text" id="name" name="name" required class="w-full px-4 py-3 rounded-xl"
-                                    placeholder="Ihr vollständiger Name" />
+                                    placeholder="Ihr vollständiger Name" autocomplete="name" />
                             </div>
 
                             <div>
                                 <label for="phone" class="block text-sm font-medium mb-2"
                                     style="color: var(--muted);">Telefon *</label>
                                 <input type="tel" id="phone" name="phone" required class="w-full px-4 py-3 rounded-xl"
-                                    placeholder="Für Rückfragen und Terminbestätigung" />
+                                    placeholder="Für Rückfragen und Terminbestätigung" autocomplete="tel" />
                             </div>
 
                             <div>
                                 <label for="vehicle" class="block text-sm font-medium mb-2"
                                     style="color: var(--muted);">Fahrzeug</label>
                                 <input type="text" id="vehicle" name="vehicle" class="w-full px-4 py-3 rounded-xl"
-                                    placeholder="z.B. Mercedes W204, 2012" />
+                                    placeholder="z.B. Mercedes W204, 2012" autocomplete="off" />
                             </div>
 
                             <div>
@@ -606,7 +594,6 @@
                         <div class="space-y-2 text-sm" style="color: var(--muted);">
                             <a href="#" class="block hover:text-white transition-colors">Impressum</a>
                             <a href="#" class="block hover:text-white transition-colors">Datenschutz</a>
-
                         </div>
                     </div>
                 </div>
@@ -625,7 +612,6 @@
 
     <div id="toast-container" class="fixed bottom-6 right-6 z-50 flex flex-col gap-3"></div>
 
-    <!-- ONLY external JS -->
     <script defer src="js/app.js"></script>
 </body>
 
