@@ -1,6 +1,7 @@
 /* ==========================================================================
     Premium Design System (dark, high-contrast, clean glass)
-    FULL CSS (left/right layout fixed)
+    FULL CSS (stable nav left/right + clean sections + forms)
+    Drop-in replacement for your current CSS
    ========================================================================== */
 
 /* ===== Tokens ===== */
@@ -30,8 +31,13 @@
 }
 
 /* ===== Base / Reset ===== */
-* {
+*,
+*::before,
+*::after {
     box-sizing: border-box;
+}
+
+* {
     scrollbar-width: thin;
     scrollbar-color: rgba(255, 255, 255, 0.22) rgba(0, 0, 0, 0.35);
 }
@@ -42,17 +48,37 @@ body {
 }
 
 body {
+    margin: 0;
     font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+    color: var(--text);
     background:
         radial-gradient(1200px 600px at 20% -10%, rgba(25, 183, 255, 0.18), transparent 50%),
         radial-gradient(900px 520px at 85% 10%, rgba(10, 124, 255, 0.16), transparent 55%),
         linear-gradient(180deg, var(--bg) 0%, var(--bg2) 100%);
-    color: var(--text);
 }
 
 .font-display {
     font-family: "Space Grotesk", system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
     letter-spacing: -0.02em;
+}
+
+h1,
+h2,
+h3 {
+    margin: 0;
+}
+
+/* ===== Links / Focus ===== */
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+a:focus-visible,
+button:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(25, 183, 255, 0.14);
+    border-radius: 14px;
 }
 
 /* ===== Containers / Layout ===== */
@@ -78,8 +104,9 @@ body {
 @media (min-width: 1536px) {
     .container-xl {
         max-width: 84rem;
-        /* 1344px */
     }
+
+    /* 1344px */
 }
 
 .section-pad {
@@ -94,20 +121,10 @@ body {
     }
 }
 
-h1,
-h2,
-h3 {
-    margin: 0;
-}
-
-/* ===== FIX: Section headings LEFT (no forced center) =====
-   If you want center on mobile and left on desktop,
-   revert to your old .section-head rules. */
+/* ===== FIX: Section headings LEFT (no forced center) ===== */
 .section-head {
     text-align: left;
-    /* ✅ important */
     max-width: 56rem;
-    /* nice readable width */
 }
 
 .section-head .lead {
@@ -115,19 +132,17 @@ h3 {
     margin-right: 0 !important;
 }
 
-/* ===== Components ===== */
+/* Make anchor scroll correct with fixed nav */
+section[id] {
+    scroll-margin-top: 90px;
+}
+
+/* ===== Components (Glass / Cards) ===== */
 .glass {
     background: linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.03));
     border: 1px solid var(--stroke2);
     backdrop-filter: blur(14px);
     -webkit-backdrop-filter: blur(14px);
-}
-
-.nav-shell {
-    background: linear-gradient(180deg, rgba(10, 12, 18, 0.78), rgba(10, 12, 18, 0.55));
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
 }
 
 .chip {
@@ -137,6 +152,46 @@ h3 {
     -webkit-backdrop-filter: blur(12px);
 }
 
+.card {
+    border-radius: var(--radius-xl);
+    border: 1px solid var(--stroke2);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.03));
+    box-shadow: var(--shadow-card);
+    transition: transform 0.22s ease, border-color 0.22s ease, background 0.22s ease;
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    min-width: 0;
+}
+
+.card:hover {
+    transform: translateY(-3px);
+    border-color: rgba(255, 255, 255, 0.16);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.035));
+}
+
+.hero-shadow {
+    box-shadow: var(--shadow-float);
+}
+
+.section-topline {
+    height: 1px;
+    width: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.10), transparent);
+}
+
+/* ===== Badges / Icons ===== */
+.icon-badge {
+    width: 46px;
+    height: 46px;
+    border-radius: 16px;
+    display: grid;
+    place-items: center;
+    background: rgba(25, 183, 255, 0.10);
+    border: 1px solid rgba(25, 183, 255, 0.18);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+}
+
+/* ===== Buttons ===== */
 .btn-primary {
     background: linear-gradient(135deg, var(--primary) 0%, var(--primary2) 100%);
     box-shadow: 0 10px 34px rgba(25, 183, 255, 0.22);
@@ -161,35 +216,7 @@ h3 {
     border-color: rgba(255, 255, 255, 0.16);
 }
 
-.card {
-    border-radius: var(--radius-xl);
-    border: 1px solid var(--stroke2);
-    background: linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.03));
-    box-shadow: var(--shadow-card);
-    transition: transform 0.22s ease, border-color 0.22s ease, background 0.22s ease;
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
-    min-width: 0;
-}
-
-.card:hover {
-    transform: translateY(-3px);
-    border-color: rgba(255, 255, 255, 0.16);
-    background: linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.035));
-}
-
-.icon-badge {
-    width: 46px;
-    height: 46px;
-    border-radius: 16px;
-    display: grid;
-    place-items: center;
-    background: rgba(25, 183, 255, 0.10);
-    border: 1px solid rgba(25, 183, 255, 0.18);
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
-}
-
-/* Background helpers */
+/* ===== Background helpers ===== */
 .grid-pattern {
     background-image:
         linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
@@ -201,7 +228,6 @@ h3 {
 
 .noise {
     position: relative;
-    /* needed for ::before */
 }
 
 .noise::before {
@@ -213,17 +239,7 @@ h3 {
     opacity: 0.035;
 }
 
-.hero-shadow {
-    box-shadow: var(--shadow-float);
-}
-
-.section-topline {
-    height: 1px;
-    width: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.10), transparent);
-}
-
-/* Forms */
+/* ===== Forms ===== */
 input,
 textarea,
 select {
@@ -247,7 +263,7 @@ select:focus {
     background: rgba(255, 255, 255, 0.05);
 }
 
-/* Toast */
+/* ===== Toast ===== */
 .toast {
     animation: toastSlide 0.28s ease-out;
 }
@@ -264,20 +280,146 @@ select:focus {
     }
 }
 
-/* Better focus */
-a:focus-visible,
-button:focus-visible {
-    outline: none;
-    box-shadow: 0 0 0 4px rgba(25, 183, 255, 0.14);
-    border-radius: 14px;
+/* ==========================================================================
+   NAVIGATION (stable left / center links / right actions)
+   IMPORTANT:
+   - Use markup with .nav-shell > .container-xl > .nav-row
+   - Inside: .nav-left (brand + links), .nav-right (cta + burger)
+   ========================================================================== */
+
+.nav-shell {
+    background: linear-gradient(180deg, rgba(10, 12, 18, 0.78), rgba(10, 12, 18, 0.55));
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
 }
 
-/* Make anchor scroll correct with fixed nav */
-section[id] {
-    scroll-margin-top: 90px;
+.nav-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    min-height: 64px;
 }
 
-/* Reduced motion */
+.nav-left {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    min-width: 0;
+    /* important for truncation */
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 0;
+}
+
+.brand-title {
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1.1;
+}
+
+.brand-subtitle {
+    font-size: 12px;
+    color: var(--muted2);
+    margin-top: 2px;
+    white-space: nowrap;
+}
+
+.nav-links {
+    display: none;
+    /* mobile default */
+    align-items: center;
+    gap: 22px;
+    color: var(--muted);
+    font-size: 0.95rem;
+    line-height: 1;
+    min-width: 0;
+}
+
+.nav-links a {
+    white-space: nowrap;
+    transition: color .18s ease, opacity .18s ease;
+}
+
+.nav-links a:hover {
+    color: var(--text);
+}
+
+@media (min-width: 768px) {
+    .nav-links {
+        display: flex;
+    }
+}
+
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-shrink: 0;
+}
+
+.nav-cta {
+    display: none;
+    /* hidden on xs */
+}
+
+@media (min-width: 640px) {
+    .nav-cta {
+        display: inline-flex;
+    }
+}
+
+/* Mobile menu panel (if you use it) */
+.mobile-menu {
+    display: none;
+    position: relative;
+}
+
+.mobile-menu.is-open {
+    display: block;
+}
+
+/* Overlay */
+.mobile-menu .overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.60);
+}
+
+/* Panel */
+.mobile-menu .panel {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 64px;
+    /* below nav */
+    background: linear-gradient(180deg, rgba(10, 12, 18, 0.86), rgba(10, 12, 18, 0.62));
+    border-top: 1px solid rgba(255, 255, 255, 0.10);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+}
+
+.mobile-menu .panel .inner {
+    padding: 18px 0;
+}
+
+.mobile-menu a {
+    display: block;
+    padding: 10px 0;
+    color: var(--muted);
+    transition: color .18s ease;
+}
+
+.mobile-menu a:hover {
+    color: var(--text);
+}
+
+/* ===== Reduced motion ===== */
 @media (prefers-reduced-motion: reduce) {
 
     .card,
@@ -285,41 +427,4 @@ section[id] {
     .btn-secondary {
         transition: none;
     }
-}
-/* === HARD FIX: Navbar layout (left / right) === */
-.nav-shell .nav-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between !important;
-    gap: 16px;
-}
-
-.nav-shell .nav-left {
-    display: flex;
-    align-items: center;
-    gap: 40px;
-    min-width: 0;
-}
-
-.nav-shell .nav-right {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    flex-shrink: 0;
-}
-
-/* ВАЖНО: если где-то остался center-block, отключаем его эффект */
-.nav-shell .nav-center {
-    flex: 0 0 auto !important;
-    justify-content: flex-start !important;
-}
-/* force nav left alignment */
-.nav-shell nav a {
-  white-space: nowrap;
-}
-
-.nav-shell .container-xl {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
 }
