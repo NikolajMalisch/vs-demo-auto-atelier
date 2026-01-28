@@ -8,7 +8,7 @@
     <meta name="description"
         content="Premium Werkstattservice: Diagnose, Wartung, Reparatur. Transparente Preise, schnelle Termine, moderne Technik." />
 
-    <!-- Tailwind CDN (ohne Build-Prozess) -->
+    <!-- Tailwind CDN (для утилит/сетки/отступов) -->
     <script src="https://cdn.tailwindcss.com"></script>
 
     <!-- Fonts -->
@@ -19,28 +19,45 @@
         rel="stylesheet" />
 
     <style>
-        /* ===============================
-        Base + Design Tokens (premium clean)
-    =============================== */
-        :root {
-            --color-bg: #070A0F;
-            /* clean premium dark */
-            --color-surface: #0B1220;
-            /* surface */
-            --color-text: #EAF0FF;
-            /* soft white */
-            --color-muted: rgba(234, 240, 255, .72);
-            --color-border: rgba(255, 255, 255, .08);
+        /* ==========================================================================
+        Premium Design System (dark, high-contrast, clean glass)
+        Drop-in + compatible with Tailwind utilities
+       ========================================================================== */
 
-            --color-primary: #0ea5e9;
-            --color-secondary: rgba(255, 255, 255, .06);
+        :root {
+            --bg: #070a0f;
+            --bg2: #06070b;
+
+            --panel: rgba(255, 255, 255, 0.05);
+            --panel2: rgba(255, 255, 255, 0.035);
+
+            --stroke: rgba(255, 255, 255, 0.10);
+            --stroke2: rgba(255, 255, 255, 0.06);
+
+            --text: rgba(255, 255, 255, 0.92);
+            --muted: rgba(255, 255, 255, 0.68);
+            --muted2: rgba(255, 255, 255, 0.52);
+
+            --primary: #19b7ff;
+            --primary2: #0a7cff;
+
+            --radius-xl: 22px;
+            --radius-2xl: 28px;
+
+            --shadow-soft: 0 18px 70px rgba(0, 0, 0, 0.55);
+            --shadow-card: 0 16px 50px rgba(0, 0, 0, 0.55);
+            --shadow-float: 0 22px 90px rgba(0, 0, 0, 0.65);
         }
 
-        /* ✅ correct box-sizing */
         *,
         *::before,
         *::after {
             box-sizing: border-box;
+        }
+
+        * {
+            scrollbar-width: thin;
+            scrollbar-color: rgba(255, 255, 255, 0.22) rgba(0, 0, 0, 0.35);
         }
 
         html,
@@ -50,240 +67,477 @@
 
         body {
             margin: 0;
-        }
-
-        /* Scrollbar */
-        * {
-            scrollbar-width: thin;
-            scrollbar-color: rgba(255, 255, 255, .18) var(--color-bg);
+            font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+            color: var(--text);
+            background:
+                radial-gradient(1200px 600px at 20% -10%, rgba(25, 183, 255, 0.18), transparent 50%),
+                radial-gradient(900px 520px at 85% 10%, rgba(10, 124, 255, 0.16), transparent 55%),
+                linear-gradient(180deg, var(--bg) 0%, var(--bg2) 100%);
         }
 
         .font-display {
-            font-family: "Space Grotesk", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+            font-family: "Space Grotesk", system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+            letter-spacing: -0.02em;
         }
 
-        .font-body {
-            font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+        h1,
+        h2,
+        h3 {
+            margin: 0;
         }
 
-        /* Clean premium glass */
-        .glass-card {
-            background: rgba(11, 18, 32, 0.68);
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        a:focus-visible,
+        button:focus-visible,
+        input:focus-visible,
+        textarea:focus-visible,
+        select:focus-visible {
+            outline: none;
+            box-shadow: 0 0 0 4px rgba(25, 183, 255, 0.14);
+            border-radius: 14px;
+        }
+
+        /* Containers */
+        .container-xl {
+            max-width: 80rem;
+            /* 1280px */
+            margin-inline: auto;
+            padding-inline: 1rem;
+        }
+
+        @media (min-width: 640px) {
+            .container-xl {
+                padding-inline: 1.5rem;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .container-xl {
+                padding-inline: 2rem;
+            }
+        }
+
+        @media (min-width: 1536px) {
+            .container-xl {
+                max-width: 84rem;
+            }
+        }
+
+        /* 1344px */
+
+        .section-pad {
+            padding-top: 5rem;
+            padding-bottom: 5rem;
+        }
+
+        @media (min-width: 640px) {
+            .section-pad {
+                padding-top: 7rem;
+                padding-bottom: 7rem;
+            }
+        }
+
+        section[id] {
+            scroll-margin-top: 92px;
+        }
+
+        /* Glass / Cards */
+        .glass {
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.03));
+            border: 1px solid var(--stroke2);
             backdrop-filter: blur(14px);
             -webkit-backdrop-filter: blur(14px);
-            border: 1px solid var(--color-border);
-            box-shadow: 0 18px 60px rgba(0, 0, 0, .35);
         }
 
-        /* Disable old grid/noise look */
-        .grid-pattern {
-            background: none;
+        .card {
+            border-radius: var(--radius-xl);
+            border: 1px solid var(--stroke2);
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.03));
+            box-shadow: var(--shadow-card);
+            transition: transform 0.22s ease, border-color 0.22s ease, background 0.22s ease;
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            min-width: 0;
         }
 
-        .noise-overlay {
-            position: relative;
+        .card:hover {
+            transform: translateY(-3px);
+            border-color: rgba(255, 255, 255, 0.16);
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.035));
         }
 
-        .noise-overlay::before {
-            opacity: 0;
+        .hero-shadow {
+            box-shadow: var(--shadow-float);
         }
 
-        /* Premium clean background */
-        .clean-bg {
-            position: relative;
-            background:
-                radial-gradient(1200px 700px at 15% 10%, rgba(14, 165, 233, .16), transparent 60%),
-                radial-gradient(900px 600px at 85% 18%, rgba(99, 102, 241, .12), transparent 62%),
-                radial-gradient(800px 600px at 45% 95%, rgba(34, 211, 238, .08), transparent 60%),
-                linear-gradient(180deg, rgba(7, 10, 15, 1) 0%, rgba(7, 10, 15, 1) 100%);
+        .chip {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
         }
 
-        .clean-bg::after {
-            content: "";
-            position: absolute;
-            inset: 0;
-            pointer-events: none;
-            opacity: .07;
-            background-image:
-                linear-gradient(to right, rgba(255, 255, 255, .10) 1px, transparent 1px),
-                linear-gradient(to bottom, rgba(255, 255, 255, .10) 1px, transparent 1px);
-            background-size: 72px 72px;
+        .icon-badge {
+            width: 46px;
+            height: 46px;
+            border-radius: 16px;
+            display: grid;
+            place-items: center;
+            background: rgba(25, 183, 255, 0.10);
+            border: 1px solid rgba(25, 183, 255, 0.18);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+            flex-shrink: 0;
         }
 
         /* Buttons */
         .btn-primary {
-            background: linear-gradient(135deg, var(--color-primary) 0%, #0284c7 100%);
-            box-shadow: 0 10px 30px rgba(14, 165, 233, 0.22);
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary2) 100%);
+            box-shadow: 0 10px 34px rgba(25, 183, 255, 0.22);
             transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
         }
 
         .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 16px 44px rgba(14, 165, 233, 0.32);
+            transform: translateY(-1px);
+            box-shadow: 0 18px 48px rgba(25, 183, 255, 0.28);
             filter: brightness(1.02);
         }
 
         .btn-secondary {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.12);
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.10);
             transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
         }
 
         .btn-secondary:hover {
-            transform: translateY(-2px);
-            background: rgba(255, 255, 255, 0.08);
-            border-color: rgba(255, 255, 255, 0.22);
+            transform: translateY(-1px);
+            background: rgba(255, 255, 255, 0.06);
+            border-color: rgba(255, 255, 255, 0.16);
         }
 
-        /* Toast */
-        .toast {
-            animation: toastSlide 0.28s ease-out;
+        /* Forms */
+        input,
+        textarea,
+        select {
+            background: rgba(255, 255, 255, 0.035);
+            border: 1px solid rgba(255, 255, 255, 0.10);
+            color: rgba(255, 255, 255, 0.92);
+            transition: border-color 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
         }
 
-        @keyframes toastSlide {
-            from {
-                opacity: 0;
-                transform: translateX(16px);
+        input::placeholder,
+        textarea::placeholder {
+            color: rgba(255, 255, 255, 0.44);
+        }
+
+        input:focus,
+        textarea:focus,
+        select:focus {
+            outline: none;
+            border-color: rgba(25, 183, 255, 0.55);
+            box-shadow: 0 0 0 4px rgba(25, 183, 255, 0.10);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        /* important for <option> colors on dark selects */
+        select option {
+            background: #0b1220;
+            color: rgba(255, 255, 255, 0.92);
+        }
+
+        /* NAV full width */
+        .nav-shell {
+            background: linear-gradient(180deg, rgba(10, 12, 18, 0.78), rgba(10, 12, 18, 0.55));
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+        }
+
+        .nav-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            min-height: 64px;
+            padding-block: 12px;
+        }
+
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 28px;
+            min-width: 0;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            min-width: 0;
+        }
+
+        .brand-title {
+            font-weight: 700;
+            color: var(--text);
+            line-height: 1.1;
+        }
+
+        .brand-subtitle {
+            font-size: 12px;
+            color: var(--muted2);
+            margin-top: 2px;
+            white-space: nowrap;
+        }
+
+        .nav-links {
+            display: none;
+            align-items: center;
+            gap: 22px;
+            color: var(--muted);
+            font-size: 0.95rem;
+            line-height: 1;
+            min-width: 0;
+        }
+
+        .nav-links a {
+            white-space: nowrap;
+            transition: color .18s ease, opacity .18s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--text);
+        }
+
+        @media (min-width: 768px) {
+            .nav-links {
+                display: flex;
             }
+        }
 
-            to {
-                opacity: 1;
-                transform: translateX(0);
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-shrink: 0;
+        }
+
+        .nav-cta {
+            display: none;
+        }
+
+        @media (min-width: 640px) {
+            .nav-cta {
+                display: inline-flex;
             }
         }
 
+        /* Mobile menu */
+        .mobile-menu {
+            display: none;
+            position: relative;
+        }
+
+        .mobile-menu.is-open {
+            display: block;
+        }
+
+        .mobile-menu .overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.60);
+        }
+
+        .mobile-menu .panel {
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 76px;
+            /* below nav */
+            background: linear-gradient(180deg, rgba(10, 12, 18, 0.86), rgba(10, 12, 18, 0.62));
+            border-top: 1px solid rgba(255, 255, 255, 0.10);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+        }
+
+        .mobile-menu .panel .inner {
+            padding: 18px 0;
+        }
+
+        .mobile-menu a {
+            display: block;
+            padding: 10px 0;
+            color: var(--muted);
+            transition: color .18s ease;
+        }
+
+        .mobile-menu a:hover {
+            color: var(--text);
+        }
+
+        /* Hero helpers */
+        .hero-bg {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-bg::before {
+            content: "";
+            position: absolute;
+            inset: -10% -10% -10% -10%;
+            background:
+                radial-gradient(900px 520px at 10% 10%, rgba(25, 183, 255, 0.18), transparent 55%),
+                radial-gradient(900px 600px at 90% 10%, rgba(10, 124, 255, 0.14), transparent 58%),
+                radial-gradient(900px 600px at 50% 110%, rgba(25, 183, 255, 0.08), transparent 60%);
+            filter: blur(0px);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .hero-bg::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(7, 10, 15, 0.0) 0%, rgba(7, 10, 15, 0.85) 100%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Hero image card bigger on desktop (как ты хотел) */
+        .hero-media {
+            border-radius: var(--radius-2xl);
+            overflow: hidden;
+            position: relative;
+        }
+
+        @media (min-width: 1024px) {
+            .hero-media {
+                width: clamp(560px, 46vw, 860px);
+                aspect-ratio: 16 / 10;
+                margin-left: auto;
+            }
+        }
+
+        /* Reduced motion */
         @media (prefers-reduced-motion: reduce) {
-            * {
-                scroll-behavior: auto !important;
-                transition: none !important;
-                animation: none !important;
+
+            .card,
+            .btn-primary,
+            .btn-secondary {
+                transition: none;
             }
         }
     </style>
 </head>
 
-<body class="font-body bg-[var(--color-bg)] text-[var(--color-text)]">
+<body>
     <div id="top" class="min-h-screen">
 
         <!-- ===============================
-        NAV (premium bar, not full-width wall)
-    =============================== -->
-        <nav class="fixed top-0 left-0 right-0 z-50">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4">
-                <div class="glass-card rounded-2xl">
-                    <div class="flex items-center justify-between h-16 px-4 sm:px-6">
-                        <!-- Left -->
-                        <div class="flex items-center gap-3">
-                            <div class="w-10 h-10 rounded-xl flex items-center justify-center"
-                                style="background: linear-gradient(135deg, var(--color-primary) 0%, #0284c7 100%);">
-                                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                                    aria-hidden="true">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+         NAV (FULL WIDTH)
+         =============================== -->
+        <nav class="nav-shell fixed top-0 left-0 right-0 z-50 w-full">
+            <div class="container-xl">
+                <div class="nav-row">
+
+                    <div class="nav-left">
+                        <a href="#top" class="brand" aria-label="Startseite">
+                            <div class="icon-badge" aria-hidden="true">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                                 </svg>
                             </div>
-                            <div class="leading-tight">
-                                <div class="font-display font-bold text-white">Auto Atelier</div>
-                                <div class="text-xs text-white/60 -mt-0.5">Wartung · Reparatur · Diagnose</div>
+                            <div class="leading-tight min-w-0">
+                                <div class="brand-title font-display">Auto Atelier</div>
+                                <div class="brand-subtitle">Wartung · Reparatur · Diagnose</div>
                             </div>
-                        </div>
+                        </a>
 
-                        <!-- Middle (desktop) -->
-                        <div class="hidden md:flex items-center gap-8 text-sm text-white/70">
-                            <a href="#leistungen" class="hover:text-white transition-colors">Leistungen</a>
-                            <a href="#ueber-uns" class="hover:text-white transition-colors">Über uns</a>
-                            <a href="#preise" class="hover:text-white transition-colors">Preise</a>
-                            <a href="#kontakt" class="hover:text-white transition-colors">Kontakt</a>
-                        </div>
-
-                        <!-- Right -->
-                        <div class="flex items-center gap-3">
-                            <a href="#kontakt"
-                                class="hidden sm:inline-flex btn-primary px-5 py-2.5 rounded-xl text-white text-sm font-medium">
-                                <span id="cta-primary">Termin anfragen</span>
-                            </a>
-
-                            <button id="mobile-menu-btn" class="md:hidden p-2 rounded-xl btn-secondary"
-                                aria-label="Menü öffnen" aria-controls="mobile-menu" aria-expanded="false">
-                                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                                    aria-hidden="true">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M4 6h16M4 12h16M4 18h16" />
-                                </svg>
-                            </button>
+                        <div class="nav-links" aria-label="Hauptnavigation">
+                            <a href="#leistungen">Leistungen</a>
+                            <a href="#ueber-uns">Über uns</a>
+                            <a href="#preise">Preise</a>
+                            <a href="#kontakt">Kontakt</a>
                         </div>
                     </div>
 
-                    <!-- Mobile Menu -->
-                    <div id="mobile-menu" class="hidden md:hidden">
-                        <div id="mobile-menu-overlay" class="fixed inset-0 bg-black/60"></div>
-                        <div class="px-4 pb-4">
-                            <div class="mt-3 glass-card rounded-2xl border border-white/5">
-                                <div class="px-4 py-4 space-y-2">
-                                    <a href="#leistungen"
-                                        class="block rounded-xl px-3 py-2 text-white/70 hover:bg-white/5 hover:text-white transition-colors">
-                                        Leistungen
-                                    </a>
-                                    <a href="#ueber-uns"
-                                        class="block rounded-xl px-3 py-2 text-white/70 hover:bg-white/5 hover:text-white transition-colors">
-                                        Über uns
-                                    </a>
-                                    <a href="#preise"
-                                        class="block rounded-xl px-3 py-2 text-white/70 hover:bg-white/5 hover:text-white transition-colors">
-                                        Preise
-                                    </a>
+                    <div class="nav-right">
+                        <a href="#kontakt"
+                            class="nav-cta btn-primary px-5 py-2.5 rounded-xl text-white text-sm font-medium">
+                            Termin anfragen
+                        </a>
+
+                        <button id="mobileMenuBtn" class="md:hidden btn-secondary p-2 rounded-xl"
+                            aria-label="Menü öffnen" aria-controls="mobileMenu" aria-expanded="false">
+                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M4 6h16M4 12h16M4 18h16" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Mobile menu -->
+                <div id="mobileMenu" class="mobile-menu md:hidden">
+                    <div id="mobileOverlay" class="overlay" aria-hidden="true"></div>
+                    <div class="panel">
+                        <div class="container-xl">
+                            <div class="inner">
+                                <div class="glass rounded-2xl px-6 py-4">
+                                    <a href="#leistungen">Leistungen</a>
+                                    <a href="#ueber-uns">Über uns</a>
+                                    <a href="#preise">Preise</a>
+                                    <a href="#kontakt">Kontakt</a>
+
                                     <a href="#kontakt"
-                                        class="block rounded-xl px-3 py-2 text-white/70 hover:bg-white/5 hover:text-white transition-colors">
-                                        Kontakt
-                                    </a>
-                                    <a href="#kontakt"
-                                        class="block btn-primary px-5 py-3 rounded-xl text-white text-center mt-3">
+                                        class="btn-primary mt-4 inline-flex w-full justify-center px-5 py-3 rounded-xl text-white font-medium">
                                         Termin anfragen
                                     </a>
                                 </div>
                             </div>
                         </div>
                     </div>
-
                 </div>
+
             </div>
         </nav>
 
         <!-- ===============================
-        HERO (clean premium background)
-    =============================== -->
-        <section class="relative min-h-screen clean-bg flex items-center pt-24">
-            <div class="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[rgba(7,10,15,1)]"></div>
-            <div class="absolute top-1/4 right-1/4 w-96 h-96 rounded-full opacity-20 blur-3xl"
-                style="background: var(--color-primary);"></div>
-
-            <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-20 w-full">
+         HERO
+         =============================== -->
+        <section class="hero-bg min-h-screen flex items-center pt-28">
+            <div class="container-xl relative z-10">
                 <div class="grid lg:grid-cols-2 gap-12 items-center">
 
                     <!-- Left -->
                     <div>
-                        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-card mb-6">
-                            <div class="w-2 h-2 rounded-full" style="background: var(--color-primary);"></div>
-                            <span class="text-sm text-white/70">Termine diese Woche verfügbar</span>
+                        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full chip mb-6">
+                            <div class="w-2 h-2 rounded-full" style="background: var(--primary);"></div>
+                            <span class="text-sm" style="color: var(--muted);">Termine diese Woche verfügbar</span>
                         </div>
 
-                        <h1 id="hero-headline"
+                        <h1
                             class="font-display text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6">
                             Ihre Werkstatt für Diagnose, Wartung &amp; Reparatur
                         </h1>
 
-                        <p id="hero-subline" class="text-lg sm:text-xl text-white/70 leading-relaxed mb-8">
+                        <p class="text-lg sm:text-xl leading-relaxed mb-8" style="color: var(--muted);">
                             Qualität, die überzeugt – mit sauberer Diagnose, transparenter Kommunikation und planbaren
-                            Kosten. Ob
-                            Inspektion, Wartung oder Reparatur: Wir arbeiten präzise, termintreu und mit moderner
-                            Technik. Sie erhalten vorab eine klare Einschätzung und entscheiden erst dann.
+                            Kosten.
+                            Ob Inspektion, Wartung oder Reparatur: Wir arbeiten präzise, termintreu und mit moderner
+                            Technik.
+                            Sie erhalten vorab eine klare Einschätzung und entscheiden erst dann.
                         </p>
 
                         <div class="flex flex-col sm:flex-row gap-4 mb-8">
                             <a href="#kontakt"
-                                class="btn-primary px-8 py-4 rounded-2xl text-white font-medium text-center flex items-center justify-center gap-2">
+                                class="btn-primary px-8 py-4 rounded-2xl text-white font-medium text-center inline-flex items-center justify-center gap-2">
                                 <span>Termin anfragen</span>
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                                     aria-hidden="true">
@@ -298,10 +552,10 @@
                             </a>
                         </div>
 
-                        <div class="flex flex-wrap items-center gap-6 text-sm text-white/60">
+                        <div class="flex flex-wrap items-center gap-6 text-sm" style="color: var(--muted2);">
                             <div class="flex items-center gap-2">
-                                <svg class="w-5 h-5" style="color: var(--color-primary);" fill="none"
-                                    stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                <svg class="w-5 h-5" style="color: var(--primary);" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                                 </svg>
@@ -309,8 +563,8 @@
                             </div>
 
                             <div class="flex items-center gap-2">
-                                <svg class="w-5 h-5" style="color: var(--color-primary);" fill="none"
-                                    stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                <svg class="w-5 h-5" style="color: var(--primary);" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                                 </svg>
@@ -318,8 +572,8 @@
                             </div>
 
                             <div class="flex items-center gap-2">
-                                <svg class="w-5 h-5" style="color: var(--color-primary);" fill="none"
-                                    stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                <svg class="w-5 h-5" style="color: var(--primary);" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                                 </svg>
@@ -328,16 +582,17 @@
                         </div>
                     </div>
 
-                    <!-- Right -->
+                    <!-- Right (bigger on desktop) -->
                     <div class="relative">
-                        <div class="absolute inset-0 rounded-3xl opacity-50"
-                            style="background: linear-gradient(135deg, var(--color-primary) 0%, transparent 55%);">
+                        <div class="absolute inset-0 rounded-[28px] opacity-50 pointer-events-none"
+                            style="background: linear-gradient(135deg, var(--primary) 0%, transparent 55%);">
                         </div>
 
-                        <div class="glass-card rounded-3xl p-6 relative overflow-hidden">
+                        <div class="hero-media card hero-shadow aspect-[4/3] lg:aspect-auto">
                             <img src="images/autowerkstat.webp" alt="Auto Atelier"
-                                class="w-full h-64 sm:h-72 lg:h-80 object-cover rounded-2xl" loading="eager"
-                                decoding="async" />
+                                class="absolute inset-0 w-full h-full object-cover" loading="eager" decoding="async" />
+                            <div class="absolute inset-0 bg-black/10"></div>
+                            <div class="relative z-10 p-6"></div>
                         </div>
                     </div>
 
@@ -346,25 +601,25 @@
         </section>
 
         <!-- ===============================
-        SERVICES
-    =============================== -->
-        <section id="leistungen" class="py-20 sm:py-32 relative">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="text-center mb-16">
-                    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-card mb-4">
-                        <span class="text-sm text-white/70">Unsere Leistungen</span>
+            SERVICES
+        =============================== -->
+        <section id="leistungen" class="section-pad">
+            <div class="container-xl">
+                <div class="max-w-3xl">
+                    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full chip mb-4">
+                        <span class="text-sm" style="color: var(--muted);">Unsere Leistungen</span>
                     </div>
                     <h2 class="font-display text-3xl sm:text-4xl font-bold text-white mb-4">
                         Alles für Ihr Fahrzeug – aus einer Hand
                     </h2>
-                    <p class="text-lg text-white/70 max-w-2xl mx-auto">
+                    <p class="text-lg" style="color: var(--muted);">
                         Von der Diagnose bis zur Reparatur: präzise, transparent, zuverlässig.
                     </p>
                 </div>
 
-                <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-12">
                     <!-- Card 1 -->
-                    <div class="glass-card rounded-2xl overflow-hidden hover:scale-[1.02] transition-transform">
+                    <div class="card overflow-hidden">
                         <div class="relative h-44">
                             <img src="images/werkstat-inspektion.webp" alt="Inspektion & Wartung"
                                 class="w-full h-full object-cover" loading="lazy" decoding="async" />
@@ -372,17 +627,15 @@
                             </div>
                         </div>
                         <div class="p-8">
-                            <h3 class="font-display font-semibold text-white text-xl mb-3">
-                                Inspektion &amp; Wartung
-                            </h3>
-                            <p class="text-white/70 leading-relaxed">
+                            <h3 class="font-display font-semibold text-white text-xl mb-3">Inspektion &amp; Wartung</h3>
+                            <p style="color: var(--muted);">
                                 Herstellerkonforme Inspektionen, Ölservice, Filter, Bremsen – sauber dokumentiert.
                             </p>
                         </div>
                     </div>
 
                     <!-- Card 2 -->
-                    <div class="glass-card rounded-2xl overflow-hidden hover:scale-[1.02] transition-transform">
+                    <div class="card overflow-hidden">
                         <div class="relative h-44">
                             <img src="images/diagnostik.webp" alt="Diagnose & Elektronik"
                                 class="w-full h-full object-cover" loading="lazy" decoding="async" />
@@ -390,17 +643,16 @@
                             </div>
                         </div>
                         <div class="p-8">
-                            <h3 class="font-display font-semibold text-white text-xl mb-3">
-                                Diagnose &amp; Elektronik
+                            <h3 class="font-display font-semibold text-white text-xl mb-3">Diagnose &amp; Elektronik
                             </h3>
-                            <p class="text-white/70 leading-relaxed">
+                            <p style="color: var(--muted);">
                                 Fehlerspeicher, Sensorik, Steuergeräte – moderne Diagnosetechnik für klare Ursachen.
                             </p>
                         </div>
                     </div>
 
                     <!-- Card 3 -->
-                    <div class="glass-card rounded-2xl overflow-hidden hover:scale-[1.02] transition-transform">
+                    <div class="card overflow-hidden">
                         <div class="relative h-44">
                             <img src="images/reparatur.webp" alt="Reparaturen" class="w-full h-full object-cover"
                                 loading="lazy" decoding="async" />
@@ -409,7 +661,7 @@
                         </div>
                         <div class="p-8">
                             <h3 class="font-display font-semibold text-white text-xl mb-3">Reparaturen</h3>
-                            <p class="text-white/70 leading-relaxed">
+                            <p style="color: var(--muted);">
                                 Motor, Fahrwerk, Bremsen, Klima – solide Arbeit mit fairer Beratung.
                             </p>
                         </div>
@@ -419,62 +671,64 @@
         </section>
 
         <!-- ===============================
-        ABOUT
-    =============================== -->
-        <section id="ueber-uns" class="py-20 sm:py-32 relative">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            ABOUT
+        =============================== -->
+        <section id="ueber-uns" class="section-pad">
+            <div class="container-xl">
                 <div class="grid lg:grid-cols-2 gap-12 items-center">
                     <div>
-                        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-card mb-4">
-                            <span class="text-sm text-white/70">Über uns</span>
+                        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full chip mb-4">
+                            <span class="text-sm" style="color: var(--muted);">Über uns</span>
                         </div>
-                        <h2 class="font-display text-3xl sm:text-4xl font-bold text-white mb-6">Warum Auto Atelier?</h2>
-                        <p id="about-text" class="text-lg text-white/70 leading-relaxed mb-8">
+                        <h2 class="font-display text-3xl sm:text-4xl font-bold text-white mb-6">
+                            Warum Auto Atelier?
+                        </h2>
+                        <p class="text-lg leading-relaxed mb-8" style="color: var(--muted);">
                             Auto Atelier ist Ihre meistergeführte Werkstatt in Hameln mit Fokus auf moderner
-                            Fahrzeugdiagnostik und zuverlässiger Wartung — für alle Marken und Modelle. Wir kombinieren
-                            Erfahrung mit aktueller Technik,
+                            Fahrzeugdiagnostik
+                            und zuverlässiger Wartung — für alle Marken und Modelle. Wir kombinieren Erfahrung mit
+                            aktueller Technik,
                             dokumentieren Arbeitsschritte nachvollziehbar und beraten verständlich. Unser Anspruch:
-                            klare Ergebnisse, faire Empfehlungen und ein Service, der langfristig Vertrauen schafft.
+                            klare Ergebnisse,
+                            faire Empfehlungen und ein Service, der langfristig Vertrauen schafft.
                         </p>
 
                         <div class="grid sm:grid-cols-2 gap-6">
-                            <div class="glass-card rounded-2xl p-6">
+                            <div class="card p-6">
                                 <div class="font-display font-semibold text-white text-lg mb-2">Transparent</div>
-                                <div class="text-white/70 text-sm">Klare Diagnosen, nachvollziehbare Angebote, keine
-                                    Überraschungen.</div>
+                                <div class="text-sm" style="color: var(--muted);">Klare Diagnosen, nachvollziehbare
+                                    Angebote, keine Überraschungen.</div>
                             </div>
-                            <div class="glass-card rounded-2xl p-6">
+                            <div class="card p-6">
                                 <div class="font-display font-semibold text-white text-lg mb-2">Zuverlässig</div>
-                                <div class="text-white/70 text-sm">Pünktliche Termine und saubere Ausführung –
-                                    konsequent.</div>
+                                <div class="text-sm" style="color: var(--muted);">Pünktliche Termine und saubere
+                                    Ausführung – konsequent.</div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="glass-card rounded-3xl p-8">
+                    <div class="card p-8" style="border-radius: var(--radius-2xl);">
                         <div class="space-y-6">
 
                             <div class="flex items-start gap-4">
-                                <div class="w-10 h-10 rounded-2xl flex items-center justify-center flex-shrink-0"
-                                    style="background: rgba(14,165,233,0.12);">
-                                    <svg class="w-5 h-5" style="color: var(--color-primary);" fill="none"
-                                        stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                <div class="icon-badge">
+                                    <svg class="w-5 h-5" style="color: var(--primary);" fill="none"
+                                        stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                             d="M5 13l4 4L19 7" />
                                     </svg>
                                 </div>
                                 <div>
                                     <div class="font-medium text-white mb-1">Meisterqualität</div>
-                                    <div class="text-sm text-white/70">Arbeit nach Standards – mit Dokumentation und
-                                        Garantie.</div>
+                                    <div class="text-sm" style="color: var(--muted);">Arbeit nach Standards – mit
+                                        Dokumentation und Garantie.</div>
                                 </div>
                             </div>
 
                             <div class="flex items-start gap-4">
-                                <div class="w-10 h-10 rounded-2xl flex items-center justify-center flex-shrink-0"
-                                    style="background: rgba(14,165,233,0.12);">
-                                    <svg class="w-5 h-5" style="color: var(--color-primary);" fill="none"
-                                        stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                <div class="icon-badge">
+                                    <svg class="w-5 h-5" style="color: var(--primary);" fill="none"
+                                        stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                             d="M12 8v4l3 3" />
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -483,24 +737,23 @@
                                 </div>
                                 <div>
                                     <div class="font-medium text-white mb-1">Schnelle Termine</div>
-                                    <div class="text-sm text-white/70">Flexible Zeiten – wir halten Prozesse schlank.
-                                    </div>
+                                    <div class="text-sm" style="color: var(--muted);">Flexible Zeiten – wir halten
+                                        Prozesse schlank.</div>
                                 </div>
                             </div>
 
                             <div class="flex items-start gap-4">
-                                <div class="w-10 h-10 rounded-2xl flex items-center justify-center flex-shrink-0"
-                                    style="background: rgba(14,165,233,0.12);">
-                                    <svg class="w-5 h-5" style="color: var(--color-primary);" fill="none"
-                                        stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                <div class="icon-badge">
+                                    <svg class="w-5 h-5" style="color: var(--primary);" fill="none"
+                                        stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                             d="M3 10h18M7 15h10M5 6h14v14H5V6z" />
                                     </svg>
                                 </div>
                                 <div>
                                     <div class="font-medium text-white mb-1">Moderne Technik</div>
-                                    <div class="text-sm text-white/70">Diagnose auf aktuellem Stand – effizient und
-                                        präzise.</div>
+                                    <div class="text-sm" style="color: var(--muted);">Diagnose auf aktuellem Stand –
+                                        effizient und präzise.</div>
                                 </div>
                             </div>
 
@@ -512,36 +765,37 @@
         </section>
 
         <!-- ===============================
-        PRICING
-    =============================== -->
-        <section id="preise" class="py-20 sm:py-32 relative">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+         PRICING
+         =============================== -->
+        <section id="preise" class="section-pad">
+            <div class="container-xl">
                 <div class="text-center mb-16">
-                    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-card mb-4">
-                        <span class="text-sm text-white/70">Pakete &amp; Preise</span>
+                    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full chip mb-4">
+                        <span class="text-sm" style="color: var(--muted);">Pakete &amp; Preise</span>
                     </div>
                     <h2 class="font-display text-3xl sm:text-4xl font-bold text-white mb-4">Transparente Richtpreise
                     </h2>
-                    <p class="text-lg text-white/70 max-w-2xl mx-auto">
+                    <p class="text-lg max-w-2xl mx-auto" style="color: var(--muted);">
                         Keine Lockangebote – realistische Pakete, flexibel nach Fahrzeug &amp; Aufwand.
                     </p>
                 </div>
 
                 <div class="grid lg:grid-cols-3 gap-6">
-                    <div class="glass-card rounded-3xl p-8 border border-white/5">
+                    <div class="card p-8" style="border-radius: var(--radius-2xl);">
                         <div class="flex items-center justify-between mb-6">
                             <h3 class="font-display font-semibold text-white text-xl">Basis-Check</h3>
-                            <span class="text-sm text-white/50">ab</span>
+                            <span class="text-sm" style="color: var(--muted2);">ab</span>
                         </div>
                         <div class="text-4xl font-bold text-white mb-2">49€</div>
-                        <div class="text-white/70 text-sm mb-8">Schneller Zustands-Check &amp; Beratung</div>
-                        <ul class="space-y-3 text-sm text-white/70 mb-8">
-                            <li class="flex items-start gap-2"><span style="color: var(--color-primary);">✓</span>
+                        <div class="text-sm mb-8" style="color: var(--muted);">Schneller Zustands-Check &amp; Beratung
+                        </div>
+                        <ul class="space-y-3 text-sm mb-8" style="color: var(--muted);">
+                            <li class="flex items-start gap-2"><span style="color: var(--primary);">✓</span>
                                 Sichtprüfung &amp; Flüssigkeiten</li>
-                            <li class="flex items-start gap-2"><span style="color: var(--color-primary);">✓</span>
-                                Batterie &amp; Bremsen-Quickcheck</li>
-                            <li class="flex items-start gap-2"><span style="color: var(--color-primary);">✓</span>
-                                Empfehlung + Kostenschätzung</li>
+                            <li class="flex items-start gap-2"><span style="color: var(--primary);">✓</span> Batterie
+                                &amp; Bremsen-Quickcheck</li>
+                            <li class="flex items-start gap-2"><span style="color: var(--primary);">✓</span> Empfehlung
+                                + Kostenschätzung</li>
                         </ul>
                         <a href="#kontakt"
                             class="btn-secondary w-full px-6 py-3 rounded-2xl text-white font-medium text-center block">
@@ -549,19 +803,19 @@
                         </a>
                     </div>
 
-                    <div class="glass-card rounded-3xl p-8 border border-white/5">
+                    <div class="card p-8" style="border-radius: var(--radius-2xl);">
                         <div class="flex items-center justify-between mb-6">
                             <h3 class="font-display font-semibold text-white text-xl">Service</h3>
-                            <span class="text-sm text-white/50">ab</span>
+                            <span class="text-sm" style="color: var(--muted2);">ab</span>
                         </div>
                         <div class="text-4xl font-bold text-white mb-2">149€</div>
-                        <div class="text-white/70 text-sm mb-8">Wartungspaket nach Bedarf</div>
-                        <ul class="space-y-3 text-sm text-white/70 mb-8">
-                            <li class="flex items-start gap-2"><span style="color: var(--color-primary);">✓</span>
-                                Ölwechsel + Filter</li>
-                            <li class="flex items-start gap-2"><span style="color: var(--color-primary);">✓</span>
-                                Sicht- &amp; Funktionscheck</li>
-                            <li class="flex items-start gap-2"><span style="color: var(--color-primary);">✓</span>
+                        <div class="text-sm mb-8" style="color: var(--muted);">Wartungspaket nach Bedarf</div>
+                        <ul class="space-y-3 text-sm mb-8" style="color: var(--muted);">
+                            <li class="flex items-start gap-2"><span style="color: var(--primary);">✓</span> Ölwechsel +
+                                Filter</li>
+                            <li class="flex items-start gap-2"><span style="color: var(--primary);">✓</span> Sicht-
+                                &amp; Funktionscheck</li>
+                            <li class="flex items-start gap-2"><span style="color: var(--primary);">✓</span>
                                 Dokumentation</li>
                         </ul>
                         <a href="#kontakt"
@@ -570,20 +824,21 @@
                         </a>
                     </div>
 
-                    <div class="glass-card rounded-3xl p-8 border border-white/5">
+                    <div class="card p-8"
+                        style="border-radius: var(--radius-2xl); border-color: rgba(25,183,255,0.25);">
                         <div class="flex items-center justify-between mb-6">
                             <h3 class="font-display font-semibold text-white text-xl">Diagnose</h3>
-                            <span class="text-sm text-white/50">ab</span>
+                            <span class="text-sm" style="color: var(--muted2);">ab</span>
                         </div>
                         <div class="text-4xl font-bold text-white mb-2">79€</div>
-                        <div class="text-white/70 text-sm mb-8">Elektronik &amp; Fehlersuche</div>
-                        <ul class="space-y-3 text-sm text-white/70 mb-8">
-                            <li class="flex items-start gap-2"><span style="color: var(--color-primary);">✓</span>
+                        <div class="text-sm mb-8" style="color: var(--muted);">Elektronik &amp; Fehlersuche</div>
+                        <ul class="space-y-3 text-sm mb-8" style="color: var(--muted);">
+                            <li class="flex items-start gap-2"><span style="color: var(--primary);">✓</span>
                                 Fehlerspeicher auslesen</li>
-                            <li class="flex items-start gap-2"><span style="color: var(--color-primary);">✓</span>
-                                Kurzanalyse + Erklärung</li>
-                            <li class="flex items-start gap-2"><span style="color: var(--color-primary);">✓</span>
-                                Empfehlung zur Reparatur</li>
+                            <li class="flex items-start gap-2"><span style="color: var(--primary);">✓</span> Kurzanalyse
+                                + Erklärung</li>
+                            <li class="flex items-start gap-2"><span style="color: var(--primary);">✓</span> Empfehlung
+                                zur Reparatur</li>
                         </ul>
                         <a href="#kontakt"
                             class="btn-primary w-full px-6 py-3 rounded-2xl text-white font-medium text-center block">
@@ -595,140 +850,200 @@
         </section>
 
         <!-- ===============================
-        CONTACT
-    =============================== -->
-        <section id="kontakt" class="py-20 sm:py-32 relative">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+         CONTACT (with service selection)
+         =============================== -->
+        <section id="kontakt" class="section-pad">
+            <div class="container-xl">
                 <div class="grid lg:grid-cols-2 gap-12 items-start">
                     <div>
-                        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-card mb-4">
-                            <span class="text-sm text-white/70">Kontakt</span>
+                        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full chip mb-4">
+                            <span class="text-sm" style="color: var(--muted);">Kontakt</span>
                         </div>
                         <h2 class="font-display text-3xl sm:text-4xl font-bold text-white mb-4">
                             Termin anfragen – schnell &amp; unkompliziert
                         </h2>
-                        <p class="text-lg text-white/70 mb-8">
+                        <p class="text-lg mb-8" style="color: var(--muted);">
                             Senden Sie uns Ihre Anfrage. Wir melden uns zeitnah mit Terminvorschlägen und einer ersten
                             Einschätzung.
                         </p>
 
-                        <div class="space-y-4 text-sm text-white/70">
-                            <div class="glass-card rounded-2xl p-5">
+                        <div class="space-y-4 text-sm" style="color: var(--muted);">
+                            <div class="card p-5">
                                 <div class="font-medium text-white mb-1">Telefon</div>
-                                <div class="text-white/70">05151 123456</div>
+                                <div style="color: var(--muted);">05151 123456</div>
                             </div>
-                            <div class="glass-card rounded-2xl p-5">
+                            <div class="card p-5">
                                 <div class="font-medium text-white mb-1">E-Mail</div>
-                                <div class="text-white/70">info@auto-atelier.de</div>
+                                <div style="color: var(--muted);">info@auto-atelier.de</div>
                             </div>
-                            <div class="glass-card rounded-2xl p-5">
+                            <div class="card p-5">
                                 <div class="font-medium text-white mb-1">Adresse</div>
-                                <div class="text-white/70">Musterstraße 12, 31785 Hameln</div>
+                                <div style="color: var(--muted);">Musterstraße 12, 31785 Hameln</div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="glass-card rounded-3xl p-8">
+                    <div class="card p-8" style="border-radius: var(--radius-2xl);">
                         <form id="contact-form" class="space-y-4">
+
                             <div>
-                                <label class="block text-sm text-white/70 mb-2" for="name">Name</label>
-                                <input id="name" name="name" type="text" required
-                                    class="w-full rounded-2xl bg-white/5 border border-white/10 px-4 py-3 text-white placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-sky-500/40" />
+                                <label class="block text-sm mb-2" style="color: var(--muted);"
+                                    for="service">Anliegen</label>
+                                <select id="service" name="service" required class="w-full rounded-2xl px-4 py-3">
+                                    <option value="" selected>Bitte auswählen…</option>
+                                    <option value="Inspektion & Wartung">Inspektion & Wartung</option>
+                                    <option value="Ölwechsel">Ölwechsel</option>
+                                    <option value="Bremsen">Bremsen</option>
+                                    <option value="Diagnose / Elektronik">Diagnose / Elektronik</option>
+                                    <option value="Klimaservice">Klimaservice</option>
+                                    <option value="Reparatur (allgemein)">Reparatur (allgemein)</option>
+                                    <option value="TÜV / HU-AU Vorbereitung">TÜV / HU-AU Vorbereitung</option>
+                                    <option value="Sonstiges">Sonstiges</option>
+                                </select>
                             </div>
 
                             <div>
-                                <label class="block text-sm text-white/70 mb-2" for="email">E-Mail</label>
-                                <input id="email" name="email" type="email" required
-                                    class="w-full rounded-2xl bg-white/5 border border-white/10 px-4 py-3 text-white placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-sky-500/40" />
+                                <label class="block text-sm mb-2" style="color: var(--muted);" for="name">Name</label>
+                                <input id="name" name="name" type="text" required class="w-full rounded-2xl px-4 py-3"
+                                    placeholder="Max Mustermann" />
+                            </div>
+
+                            <div class="grid sm:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-sm mb-2" style="color: var(--muted);"
+                                        for="email">E-Mail</label>
+                                    <input id="email" name="email" type="email" required
+                                        class="w-full rounded-2xl px-4 py-3" placeholder="max@mail.de" />
+                                </div>
+                                <div>
+                                    <label class="block text-sm mb-2" style="color: var(--muted);" for="phone">Telefon
+                                        (optional)</label>
+                                    <input id="phone" name="phone" type="tel" class="w-full rounded-2xl px-4 py-3"
+                                        placeholder="+49 …" />
+                                </div>
+                            </div>
+
+                            <div class="grid sm:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-sm mb-2" style="color: var(--muted);" for="car">Fahrzeug
+                                        (optional)</label>
+                                    <input id="car" name="car" type="text" class="w-full rounded-2xl px-4 py-3"
+                                        placeholder="z.B. BMW 3er, 2018" />
+                                </div>
+                                <div>
+                                    <label class="block text-sm mb-2" style="color: var(--muted);"
+                                        for="plate">Kennzeichen (optional)</label>
+                                    <input id="plate" name="plate" type="text" class="w-full rounded-2xl px-4 py-3"
+                                        placeholder="HM-XX 1234" />
+                                </div>
+                            </div>
+
+                            <div class="grid sm:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-sm mb-2" style="color: var(--muted);"
+                                        for="date">Wunschtermin (optional)</label>
+                                    <input id="date" name="date" type="date" class="w-full rounded-2xl px-4 py-3" />
+                                </div>
+                                <div>
+                                    <label class="block text-sm mb-2" style="color: var(--muted);"
+                                        for="time">Zeitfenster (optional)</label>
+                                    <select id="time" name="time" class="w-full rounded-2xl px-4 py-3">
+                                        <option value="">Bitte auswählen…</option>
+                                        <option value="Vormittags">Vormittags</option>
+                                        <option value="Mittags">Mittags</option>
+                                        <option value="Nachmittags">Nachmittags</option>
+                                        <option value="Egal">Egal</option>
+                                    </select>
+                                </div>
                             </div>
 
                             <div>
-                                <label class="block text-sm text-white/70 mb-2" for="message">Nachricht</label>
+                                <label class="block text-sm mb-2" style="color: var(--muted);"
+                                    for="message">Details</label>
                                 <textarea id="message" name="message" rows="5" required
-                                    class="w-full rounded-2xl bg-white/5 border border-white/10 px-4 py-3 text-white placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-sky-500/40"></textarea>
+                                    class="w-full rounded-2xl px-4 py-3"
+                                    placeholder="Beschreiben Sie kurz das Problem / den Wunsch…"></textarea>
                             </div>
+
+                            <input type="hidden" id="summary" name="summary" value="" />
 
                             <button type="submit"
                                 class="btn-primary w-full px-6 py-3 rounded-2xl text-white font-medium text-center">
                                 Anfrage senden
                             </button>
 
-                            <p id="form-note" class="text-xs text-white/50"></p>
+                            <p id="form-note" class="text-xs" style="color: var(--muted2);"></p>
                         </form>
                     </div>
+
                 </div>
             </div>
         </section>
 
         <!-- ===============================
-        FOOTER (premium, minimal)
-    =============================== -->
+         FOOTER
+         =============================== -->
         <footer class="mt-24 border-t border-white/10">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="container-xl py-12">
                 <div class="flex flex-col gap-8 md:flex-row md:items-center md:justify-between">
                     <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-xl flex items-center justify-center"
-                            style="background: linear-gradient(135deg, var(--color-primary) 0%, #0284c7 100%);">
+                        <div class="icon-badge" aria-hidden="true">
                             <span class="font-display font-bold text-white">AA</span>
                         </div>
                         <div class="leading-tight">
                             <div class="font-display font-semibold text-white">Auto Atelier</div>
-                            <div class="text-xs text-white/60">Wartung · Reparatur · Diagnose</div>
+                            <div class="text-xs" style="color: var(--muted2);">Wartung · Reparatur · Diagnose</div>
                         </div>
                     </div>
 
-                    <div class="flex flex-wrap gap-x-6 gap-y-2 text-sm">
-                        <a href="#leistungen" class="text-white/60 hover:text-white transition-colors">Leistungen</a>
-                        <a href="#preise" class="text-white/60 hover:text-white transition-colors">Preise</a>
-                        <a href="#kontakt" class="text-white/60 hover:text-white transition-colors">Kontakt</a>
-                        <a href="impressum.html" class="text-white/60 hover:text-white transition-colors">Impressum</a>
-                        <a href="datenschutz.html"
-                            class="text-white/60 hover:text-white transition-colors">Datenschutz</a>
+                    <div class="flex flex-wrap gap-x-6 gap-y-2 text-sm" style="color: var(--muted2);">
+                        <a href="#leistungen" class="hover:text-white transition-colors">Leistungen</a>
+                        <a href="#preise" class="hover:text-white transition-colors">Preise</a>
+                        <a href="#kontakt" class="hover:text-white transition-colors">Kontakt</a>
+                        <a href="impressum.html" class="hover:text-white transition-colors">Impressum</a>
+                        <a href="datenschutz.html" class="hover:text-white transition-colors">Datenschutz</a>
                     </div>
 
-                    <div class="text-xs text-white/50">
+                    <div class="text-xs" style="color: var(--muted2);">
                         © <span id="year"></span> Auto Atelier. Alle Rechte vorbehalten.
                     </div>
                 </div>
             </div>
         </footer>
 
-        <!-- Toast Container -->
-        <div id="toast-container" class="fixed bottom-6 right-6 z-50 flex flex-col gap-3"></div>
-
     </div>
 
     <script>
         // ==========================
-        // Mobile menu (open/close)
+        // Mobile menu (open/close) - new markup
         // ==========================
         (function () {
-            var btn = document.getElementById('mobile-menu-btn');
-            var menu = document.getElementById('mobile-menu');
-            var overlay = document.getElementById('mobile-menu-overlay');
+            var btn = document.getElementById('mobileMenuBtn');
+            var menu = document.getElementById('mobileMenu');
+            var overlay = document.getElementById('mobileOverlay');
 
             if (!btn || !menu) return;
 
             function openMenu() {
-                menu.classList.remove('hidden');
+                menu.classList.add('is-open');
                 btn.setAttribute('aria-expanded', 'true');
                 document.documentElement.style.overflow = 'hidden';
             }
 
             function closeMenu() {
-                menu.classList.add('hidden');
+                menu.classList.remove('is-open');
                 btn.setAttribute('aria-expanded', 'false');
                 document.documentElement.style.overflow = '';
             }
 
             btn.addEventListener('click', function () {
-                var isOpen = !menu.classList.contains('hidden');
+                var isOpen = menu.classList.contains('is-open');
                 if (isOpen) closeMenu(); else openMenu();
             });
 
             if (overlay) overlay.addEventListener('click', closeMenu);
 
-            // Close on link click (mobile)
+            // Close on link click
             menu.addEventListener('click', function (e) {
                 var t = e.target;
                 if (t && t.tagName === 'A') closeMenu();
@@ -749,18 +1064,58 @@
         })();
 
         // ==========================
-        // Demo contact form behavior
+        // Demo contact form behavior (with service selection)
         // ==========================
         (function () {
             var form = document.getElementById('contact-form');
             var note = document.getElementById('form-note');
             if (!form) return;
 
+            function buildSummary() {
+                var service = (document.getElementById('service') || {}).value || '';
+                var name = (document.getElementById('name') || {}).value || '';
+                var email = (document.getElementById('email') || {}).value || '';
+                var phone = (document.getElementById('phone') || {}).value || '';
+                var car = (document.getElementById('car') || {}).value || '';
+                var plate = (document.getElementById('plate') || {}).value || '';
+                var date = (document.getElementById('date') || {}).value || '';
+                var time = (document.getElementById('time') || {}).value || '';
+                var msg = (document.getElementById('message') || {}).value || '';
+
+                var lines = [];
+                if (service) lines.push("Anliegen: " + service);
+                if (car) lines.push("Fahrzeug: " + car);
+                if (plate) lines.push("Kennzeichen: " + plate);
+                if (date || time) lines.push("Wunschtermin: " + (date ? date : "—") + " (" + (time || "—") + ")");
+                lines.push("");
+                lines.push("Name: " + name);
+                lines.push("E-Mail: " + email);
+                if (phone) lines.push("Telefon: " + phone);
+                lines.push("");
+                lines.push("Details:");
+                lines.push(msg);
+
+                return lines.join("\n");
+            }
+
+            form.addEventListener('input', function () {
+                var s = document.getElementById('summary');
+                if (s) s.value = buildSummary();
+            });
+
             form.addEventListener('submit', function (e) {
                 e.preventDefault();
+
+                var summary = buildSummary();
+                var s = document.getElementById('summary');
+                if (s) s.value = summary;
+
                 if (note) {
-                    note.textContent = 'Danke. Ihre Anfrage wurde als Demo erfasst (kein Versand in dieser Version).';
+                    var chosen = (document.getElementById('service') || {}).value || "—";
+                    note.textContent = "Danke! Demo-Anfrage erfasst. (Kein Versand) — Auswahl: " + chosen;
                 }
+
+                // console.log(summary);
             });
         })();
     </script>
